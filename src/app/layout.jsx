@@ -1,5 +1,5 @@
 import { Vazirmatn } from "next/font/google";
-import "../styles/globals.css";
+import "@/src/styles/globals.css";
 
 const vazirMatn = Vazirmatn({
   subsets: ["arabic"],

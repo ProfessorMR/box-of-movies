@@ -1,3 +1,5 @@
+import Header from "@/src/components/Header";
+
 export default function Home() {
-  return <div>سلام</div>;
+  return <Header />;
 }
