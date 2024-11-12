@@ -14,3 +14,94 @@
 .thumbnail-swiper-slider .swiper-slide:last-child {
   margin: 0 !important;
 }
+
+@keyframes fadeInTitle {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+    -webkit-transform: translateX(-30px);
+    -moz-transform: translateX(-30px);
+    -ms-transform: translateX(-30px);
+    -o-transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+
+.fade-in-title {
+  animation: fadeInTitle 1s ease-in-out forwards;
+  -webkit-animation: fadeInTitle 1s ease-in-out forwards;
+}
+
+@keyframes fadeInInfo {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+    -webkit-transform: translateX(-50px);
+    -moz-transform: translateX(-50px);
+    -ms-transform: translateX(-50px);
+    -o-transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+
+.fade-in-info {
+  animation: fadeInInfo 1s ease-in-out forwards;
+  -webkit-animation: fadeInInfo 1s ease-in-out forwards;
+}
+
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+    transform: translateX(-70px);
+    -webkit-transform: translateX(-70px);
+    -moz-transform: translateX(-70px);
+    -ms-transform: translateX(-70px);
+    -o-transform: translateX(-70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-70px);
+    -webkit-transform: translateX(-70px);
+    -moz-transform: translateX(-70px);
+    -ms-transform: translateX(-70px);
+    -o-transform: translateX(-70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+
+.fade-in-text {
+  animation: fadeInText 1s ease-in-out forwards;
+  -webkit-animation: fadeInText 1s ease-in-out forwards;
+}
