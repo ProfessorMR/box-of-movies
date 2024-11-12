@@ -1,0 +1,16 @@
+.thumbnail-swiper-slider :is(.swiper-wrapper, .swiper-slide) {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.thumbnail-swiper-slider .swiper-slide {
+  opacity: 0.4;
+}
+
+.thumbnail-swiper-slider .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.thumbnail-swiper-slider .swiper-slide:last-child {
+  margin: 0 !important;
+}

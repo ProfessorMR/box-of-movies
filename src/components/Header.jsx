@@ -6,7 +6,7 @@ import "@/src/styles/header.css";
 
 export default function Header() {
   return (
-    <header className="w-full flex py-4 bg-transparent">
+    <header className="w-full flex py-4 bg-transparent z-20 relative">
       <div className="container mx-auto px-4">
         <div className="w-full flex justify-between items-center">
           <Image src={Logo} className="w-40" alt="logo" />
