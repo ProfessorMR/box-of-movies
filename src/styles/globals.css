@@ -17,7 +17,7 @@ body {
       rgba(19, 22, 28, 0.8) 90%,
       rgba(41, 42, 44, 0) 10%
     ),
-    url("/images/pattern-movies.jpg");
+    url("/images/sliders/penguin.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;

@@ -1,0 +1,7 @@
+.footer-main-area {
+  background-image: linear-gradient(
+    180deg,
+    rgba(19, 22, 28, 0.9) 90%,
+    rgba(252, 253, 255, 0) 10%
+  );
+}
