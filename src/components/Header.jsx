@@ -6,32 +6,32 @@ import "@/src/styles/header.css";
 
 export default function Header() {
   return (
-    <header className="w-full flex py-4 bg-transparent z-20 relative">
+    <header className="w-full flex py-4 bg-transparent z-20 relative header-area">
       <div className="container mx-auto px-4">
         <div className="w-full flex justify-between items-center">
           <Image src={Logo} className="w-40" alt="logo" />
           <div className="flex items-center">
             <Link
               href="#"
-              className="transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
+              className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
             >
               خانه
             </Link>
             <Link
               href="#"
-              className="transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
+              className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
             >
               فیلم ها
             </Link>
             <Link
               href="#"
-              className="transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
+              className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
             >
               سریال ها
             </Link>
             <Link
               href="#"
-              className="transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
+              className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
             >
               بالاترین امتیاز ها
             </Link>

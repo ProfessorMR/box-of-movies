@@ -93,7 +93,6 @@ export default function App() {
               <div className="absolute top-0 left-0 w-1/4 h-full bg-gradient-to-r from-black to-transparent"></div>
               <div className="absolute bottom-0 left-0 w-full h-1/4 bg-gradient-to-t from-black to-transparent"></div>
             </div>
-
             <div className="container mx-auto px-5 h-full relative z-30">
               <div
                 key={activeSlide}
