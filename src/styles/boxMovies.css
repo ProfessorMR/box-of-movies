@@ -2,13 +2,21 @@
   height: 100%;
   top: 22px;
   background: rgba(0, 0, 0, 0.5);
-  padding: 20px;
+  padding: 20px 40px;
 }
 
 .box-movies-swiper .swiper-button-prev {
-  right: 0;
+  right: 0 !important;
 }
 
 .box-movies-swiper .swiper-button-next {
-  left: 0px;
+  left: 0 !important;
+}
+
+.loading-box-movies span[aria-live="polite"] {
+  display: flex;
+}
+
+span:has(> span.loading-box-movies-title) {
+  justify-content: end;
 }

@@ -1,4 +1,5 @@
-const SERVER_URL = "https://api.themoviedb.org/3";
+import { SERVER_URL } from "@/src/utils/data";
+
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MGU1NzJmMTFiODYyZGJkNjY5YmE5ZTRjMTkyNDFhMCIsIm5iZiI6MTczMTUwOTQ5NS42MzMxNTYsInN1YiI6IjY3MmI0MTJjZDBjMDcyYWQ0OGY1NDk0YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ELnM6ZEvUli3zk7dp9_kEhx2cWIIoW-JtGexsUm5ZBw";
 
@@ -9,7 +10,7 @@ export async function getPopSeries() {
       {
         method: "GET",
         headers: {
-          "content-type": "application/application",
+          "content-type": "application/json",
           Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       }
@@ -35,7 +36,7 @@ export async function getTopSeries() {
       {
         method: "GET",
         headers: {
-          "content-type": "application/application",
+          "content-type": "application/json",
           Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       }
@@ -61,7 +62,7 @@ export async function getPopMovies() {
       {
         method: "GET",
         headers: {
-          "content-type": "application/application",
+          "content-type": "application/json",
           Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       }
@@ -87,7 +88,7 @@ export async function getTopMovies() {
       {
         method: "GET",
         headers: {
-          "content-type": "application/application",
+          "content-type": "application/json",
           Authorization: `Bearer ${ACCESS_TOKEN}`,
         },
       }
