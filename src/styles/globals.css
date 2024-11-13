@@ -11,8 +11,14 @@ body {
   background-color: var(--background);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-  }
+.main-content-area {
+  background-image: linear-gradient(
+      45deg,
+      rgba(19, 22, 28, 0.8) 90%,
+      rgba(41, 42, 44, 0) 10%
+    ),
+    url("/images/pattern-movies.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }

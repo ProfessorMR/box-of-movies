@@ -1,0 +1,14 @@
+.box-movies-swiper :is(.swiper-button-prev, .swiper-button-next) {
+  height: 100%;
+  top: 22px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+}
+
+.box-movies-swiper .swiper-button-prev {
+  right: 0;
+}
+
+.box-movies-swiper .swiper-button-next {
+  left: 0px;
+}

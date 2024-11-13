@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Thumbs } from "swiper/modules";
+
 import StarIcon from "@mui/icons-material/Star";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import TvIcon from "@mui/icons-material/Tv";
@@ -15,9 +16,6 @@ import WildRobot from "@/public/images/sliders/whild-robot.avif";
 import Penguin from "@/public/images/sliders/penguin.jpg";
 import From from "@/public/images/sliders/from.jpg";
 
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/thumbs";
 import "@/src/styles/heroArea.css";
 
 export default function App() {
@@ -68,10 +66,9 @@ export default function App() {
   ];
 
   return (
-    <section className="w-full absolute top-0 z-10 h-screen">
+    <section className="w-full z-10 h-screen">
       <Swiper
         loop={true}
-        spaceBetween={10}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
