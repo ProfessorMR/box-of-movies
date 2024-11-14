@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getPopSeries, getTopMovies, getTopSeries } from "@/src/services";
+import {
+  getGenreMovies,
+  getGenreSeries,
+  getPopMovies,
+  getPopSeries,
+  getTopMovies,
+  getTopSeries,
+} from "@/src/services";
 
 import Header from "@/src/components/Header";
 import HeroArea from "@/src/app/home/HeroArea";
@@ -19,6 +26,8 @@ export default function Home() {
   const [topRatedSeriesData, setTopRatedSeriesData] = useState(null);
   const [popularMoviesData, setPopularMoviesData] = useState(null);
   const [topRatedMoviesData, setTopRatedMoviesData] = useState(null);
+  const [genreMoviesData, setGenreMoviesData] = useState(null);
+  const [genreSeriesData, setGenreSeriesData] = useState(null);
 
   useEffect(() => {
     async function fetchPopSeries() {
@@ -43,7 +52,7 @@ export default function Home() {
 
     async function fetchPopMovies() {
       try {
-        const popMoviesData = await getTopMovies();
+        const popMoviesData = await getPopMovies();
 
         setPopularMoviesData(popMoviesData);
       } catch (err) {
@@ -61,10 +70,32 @@ export default function Home() {
       }
     }
 
+    async function fetchGenreMovies() {
+      try {
+        const topMoviesData = await getGenreMovies();
+
+        setGenreMoviesData(topMoviesData);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function fetchGenreSeries() {
+      try {
+        const topMoviesData = await getGenreSeries();
+
+        setGenreSeriesData(topMoviesData);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
     fetchPopSeries();
     fetchTopSeries();
     fetchPopMovies();
     fetchTopMovies();
+    fetchGenreMovies();
+    fetchGenreSeries();
   }, []);
 
   return (
@@ -77,24 +108,28 @@ export default function Home() {
           information={popularSeriesData}
           activeBg={false}
           isSeries={true}
+          genreSeries={genreSeriesData}
         />
         <BoxMovies
           name="برترین سریال ها"
           information={topRatedSeriesData}
           activeBg={true}
           isSeries={true}
+          genreSeries={genreSeriesData}
         />
         <BoxMovies
           name="محبوب ترین فیلم ها"
           information={popularMoviesData}
           activeBg={false}
           isSeries={false}
+          genreMovies={genreMoviesData}
         />
         <BoxMovies
           name="برترین فیلم ها"
           information={topRatedMoviesData}
           activeBg={true}
           isSeries={false}
+          genreMovies={genreMoviesData}
         />
       </main>
       <Footer />

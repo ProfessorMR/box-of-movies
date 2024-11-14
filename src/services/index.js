@@ -106,3 +106,49 @@ export async function getTopMovies() {
     throw err;
   }
 }
+
+export async function getGenreMovies() {
+  try {
+    const response = await fetch(`${SERVER_URL}/genre/movie/list?language=en`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+export async function getGenreSeries() {
+  try {
+    const response = await fetch(`${SERVER_URL}/genre/tv/list?language=en`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
