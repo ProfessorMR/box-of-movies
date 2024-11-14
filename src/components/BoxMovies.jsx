@@ -14,7 +14,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 import "@/src/styles/boxMovies.css";
 
-export default function BoxMovies({
+export default function BoxMovies({ 
   name,
   information,
   activeBg,
@@ -26,7 +26,6 @@ export default function BoxMovies({
 
   const genreSeriesLookup = genreSeries?.genres.reduce((acc, { id, name }) => {
     acc[id] = name;
-    console.log();
     return acc;
   }, {});
 

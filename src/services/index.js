@@ -152,3 +152,29 @@ export async function getGenreSeries() {
     throw err;
   }
 }
+
+export async function searchSeriesOrMovies(searchName) {
+  try {
+    const response = await fetch(
+      `${SERVER_URL}/search/multi?query=${searchName}&include_adult=false&language=en-US&page=1`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
