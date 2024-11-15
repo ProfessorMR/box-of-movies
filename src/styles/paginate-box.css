@@ -1,0 +1,28 @@
+.paginate-box {
+  direction: ltr;
+}
+
+.paginate-box .page-item {
+  color: #fff;
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginate-box .page-item.active-paginate {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+.paginate-box .previous,
+.paginate-box .next {
+  font-size: 1rem;
+  color: #fff;
+}
