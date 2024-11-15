@@ -2,7 +2,7 @@
 
 import Dropdown from "@/src/components/Dropdown";
 import { useState } from "react";
-import { DROPDOWN_DATA } from "../utils/data";
+import { DROPDOWN_DATA } from "@/src/utils/data";
 
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";

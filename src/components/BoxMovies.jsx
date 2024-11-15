@@ -14,7 +14,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 import "@/src/styles/boxMovies.css";
 
-export default function BoxMovies({ 
+export default function BoxMovies({
   name,
   information,
   activeBg,
@@ -98,46 +98,45 @@ export default function BoxMovies({
                   </SwiperSlide>
                 ))
               : information.results.map((item, index) => (
-                  <SwiperSlide
-                    key={index}
-                    className="transition ease-in-out border hover:border-primary rounded-md"
-                  >
-                    <Link href="#">
-                      <Image
-                        src={`${IMAGE_URL}${item.poster_path}`}
-                        alt={isSeries ? item.name : item.title}
-                        className="rounded-t-md"
-                        width={200}
-                        height={200}
-                      />
-                      <div className="bg-slate-700 rounded-b-md p-3">
-                        <h3 className="text-left text-white font-semibold text-lg whitespace-nowrap overflow-hidden text-ellipsis">
-                          {isSeries ? item.name : item.title}
-                        </h3>
-                        <ul className="flex justify-start flex-row-reverse gap-x-3 mt-2">
-                          <li className="text-slate-300 text-sm">
-                            {Number.parseFloat(item.vote_average).toFixed(1)}
-                            <StarIcon className="text-primary text-xl mr-1" />
-                          </li>
-                          <li className="text-slate-300 text-sm">
-                            {isSeries
-                              ? getGenreSeriesName(item.genre_ids[0])
-                              : getGenreMoviesName(item.genre_ids[0])}
-                            <FormatListBulletedIcon className="text-white text-xl mr-1" />
-                          </li>
-                          <li className="text-slate-300 text-sm">
-                            4k
-                            <TvIcon className="text-white text-xl mr-1" />
-                          </li>
-                          <li className="text-slate-300 text-sm">
-                            {isSeries
-                              ? item.first_air_date?.split("-")[0]
-                              : item.release_date?.split("-")[0]}
-                            <CalendarMonthIcon className="text-white text-xl mr-1" />
-                          </li>
-                        </ul>
-                      </div>
-                    </Link>
+                  <SwiperSlide key={index}>
+                    <div className="transition ease-in-out border hover:border-primary rounded-md">
+                      <Link href="#">
+                        <Image
+                          src={`${IMAGE_URL}${item.poster_path}`}
+                          alt={isSeries ? item.name : item.title}
+                          className="rounded-t-md"
+                          width={200}
+                          height={200}
+                        />
+                        <div className="bg-slate-700 rounded-b-md p-3">
+                          <h3 className="text-left text-white font-semibold text-lg whitespace-nowrap overflow-hidden text-ellipsis">
+                            {isSeries ? item.name : item.title}
+                          </h3>
+                          <ul className="flex justify-start flex-row-reverse gap-x-3 mt-2">
+                            <li className="text-slate-300 text-sm">
+                              {Number.parseFloat(item.vote_average).toFixed(1)}
+                              <StarIcon className="text-primary text-xl mr-1" />
+                            </li>
+                            <li className="text-slate-300 text-sm">
+                              {isSeries
+                                ? getGenreSeriesName(item.genre_ids[0])
+                                : getGenreMoviesName(item.genre_ids[0])}
+                              <FormatListBulletedIcon className="text-white text-xl mr-1" />
+                            </li>
+                            <li className="text-slate-300 text-sm">
+                              4k
+                              <TvIcon className="text-white text-xl mr-1" />
+                            </li>
+                            <li className="text-slate-300 text-sm">
+                              {isSeries
+                                ? item.first_air_date?.split("-")[0]
+                                : item.release_date?.split("-")[0]}
+                              <CalendarMonthIcon className="text-white text-xl mr-1" />
+                            </li>
+                          </ul>
+                        </div>
+                      </Link>
+                    </div>
                   </SwiperSlide>
                 ))}
           </Swiper>
