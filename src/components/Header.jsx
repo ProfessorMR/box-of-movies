@@ -89,7 +89,7 @@ export default function Header() {
               placeholder="فیلم یا سریال خود را جستجو کنید"
               value={searchName}
               onChange={(e) => setSearchName(e.target.value)}
-              onFocus={() => setShowResults(true)} // Show results when input is focused
+              onFocus={() => setShowResults(true)}
             />
             <button
               type="submit"
@@ -125,7 +125,7 @@ export default function Header() {
                           src={
                             item.poster_path
                               ? `${IMAGE_URL}${item.poster_path}`
-                              : Logo
+                              : null
                           }
                           alt={item.title || item.name}
                           className="w-28 h-28 object-cover"
