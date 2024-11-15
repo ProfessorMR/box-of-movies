@@ -1,34 +1,79 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { IMAGE_URL } from "@/src/utils/data";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 import StarIcon from "@mui/icons-material/Star";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import TvIcon from "@mui/icons-material/Tv";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
-import arcane from "@/public/images/sliders/arcane.avif";
+export default function MediaBox({
+  item,
+  getGenreMoviesName,
+  getGenreSeriesName,
+}) {
+  const [loading, setLoading] = useState(true);
 
-export default function MediaBox() {
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <SkeletonTheme baseColor="#202020" highlightColor="#999">
+        <div className="transition ease-in-out border hover:border-primary rounded-md">
+          <Skeleton height={160} className="rounded-t-md" />
+          <div className="rounded-b-md p-3">
+            <Skeleton
+              width={`60%`}
+              height={20}
+              className="loading-box-movies-title"
+            />
+            <ul className="flex justify-start flex-row-reverse gap-x-3 mt-2">
+              <li className="text-sm">
+                <Skeleton width={30} height={20} />
+              </li>
+              <li className="text-sm">
+                <Skeleton width={60} height={20} />
+              </li>
+              <li className="text-sm">
+                <Skeleton width={40} height={20} />
+              </li>
+              <li className="text-sm">
+                <Skeleton width={30} height={20} />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </SkeletonTheme>
+    );
+  }
+
   return (
     <div className="transition ease-in-out border hover:border-primary rounded-md">
       <Link href="#">
         <Image
-          src={arcane}
-          alt={"arcane"}
+          src={`${IMAGE_URL}${item.poster_path}`}
+          alt={item.name || item.title}
           className="rounded-t-md w-full"
-          height={200}
+          width={100}
+          height={50}
         />
         <div className="bg-slate-700 rounded-b-md p-3">
           <h3 className="text-left text-white font-semibold text-lg whitespace-nowrap overflow-hidden text-ellipsis">
-            Arcane
+            {item.name || item.title}
           </h3>
           <ul className="flex justify-start flex-row-reverse gap-x-3 mt-2">
             <li className="text-slate-300 text-sm">
-              9.0
+              {Number.parseFloat(item.vote_average).toFixed(1)}
               <StarIcon className="text-primary text-xl mr-1" />
             </li>
             <li className="text-slate-300 text-sm">
-              Action
+              {getGenreSeriesName(item.genre_ids[0]) ||
+                getGenreMoviesName(item.genre_ids[0])}
               <FormatListBulletedIcon className="text-white text-xl mr-1" />
             </li>
             <li className="text-slate-300 text-sm">
@@ -36,7 +81,8 @@ export default function MediaBox() {
               <TvIcon className="text-white text-xl mr-1" />
             </li>
             <li className="text-slate-300 text-sm">
-              2024
+              {item.first_air_date?.split("-")[0] ||
+                item.release_date?.split("-")[0]}
               <CalendarMonthIcon className="text-white text-xl mr-1" />
             </li>
           </ul>

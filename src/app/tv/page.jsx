@@ -9,7 +9,7 @@ export default function Tv() {
       <Header />
       <main className="py-10">
         <FilterSearch isSeries={true} />
-        <MediaGallery />
+        <MediaGallery isSeries={true} />
       </main>
       <Footer />
     </>

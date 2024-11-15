@@ -178,3 +178,67 @@ export async function searchSeriesOrMovies(searchName) {
     throw err;
   }
 }
+
+export async function advancedFilterSeries(
+  page = 1,
+  year = "",
+  genre = "",
+  voteAvg = ""
+) {
+  try {
+    const response = await fetch(
+      `${SERVER_URL}/discover/tv?language=en-US&page=${page}&first_air_date_year=${year}
+      &with_genres=${genre}&vote_average.gte=${voteAvg}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+export async function advancedFilterMovies(
+  page = 1,
+  year = "",
+  genre = "",
+  voteAvg = ""
+) {
+  try {
+    const response = await fetch(
+      `${SERVER_URL}/discover/movies?language=en-US&page=${page}&first_air_date_year=${year}
+      &with_genres=${genre}&vote_average.gte=${voteAvg}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}

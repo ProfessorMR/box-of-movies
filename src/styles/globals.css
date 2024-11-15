@@ -22,3 +22,8 @@ body {
   background-position: center;
   background-size: cover;
 }
+
+span:has(> span.loading-box-movies-title) {
+  display: flex;
+  justify-content: end;
+}

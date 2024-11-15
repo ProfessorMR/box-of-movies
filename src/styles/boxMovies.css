@@ -16,7 +16,3 @@
 .loading-box-movies span[aria-live="polite"] {
   display: flex;
 }
-
-span:has(> span.loading-box-movies-title) {
-  justify-content: end;
-}

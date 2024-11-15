@@ -19,7 +19,6 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
 import "swiper/css/navigation";
-import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Home() {
   const [popularSeriesData, setPopularSeriesData] = useState(null);
