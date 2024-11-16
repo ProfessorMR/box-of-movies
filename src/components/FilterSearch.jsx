@@ -5,7 +5,6 @@ import { useState } from "react";
 import { DROPDOWN_DATA } from "@/src/utils/data";
 
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import SearchIcon from "@mui/icons-material/Search";
 
 export default function FilterSearch({ isSeries }) {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -41,9 +40,6 @@ export default function FilterSearch({ isSeries }) {
                       }
                     />
                   ))}
-              <button className="bg-primary text-black px-8 py-2 rounded-md">
-                <SearchIcon />
-              </button>
             </div>
           </div>
         </div>

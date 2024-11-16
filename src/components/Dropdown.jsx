@@ -1,13 +1,27 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import DropdownContext from "../context/DropdownContext";
 
 export default function Dropdown({ data, isOpen, setOpenDropdown }) {
+  const { setSelectedItem } = useContext(DropdownContext);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
 
+  const [selectedText, setSelectedText] = useState(data.btn_name);
+
   const toggleDropdown = () => {
     setOpenDropdown();
+  };
+
+  const handleItemClick = (data, item) => {
+    setSelectedText(item.name || item);
+    setSelectedItem((prev) => ({
+      ...prev,
+      [data.name]: item.id || item,
+    }));
+
+    setOpenDropdown(null);
   };
 
   useEffect(() => {
@@ -36,7 +50,7 @@ export default function Dropdown({ data, isOpen, setOpenDropdown }) {
         type="button"
         onClick={toggleDropdown}
       >
-        {data.btn_name}
+        {selectedText}
         <svg
           className="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
@@ -63,9 +77,10 @@ export default function Dropdown({ data, isOpen, setOpenDropdown }) {
             {data.inside_dropdown.map((item, index) => (
               <li
                 key={index}
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                onClick={() => handleItemClick(data, item)}
               >
-                {item}
+                {item.name || item}
               </li>
             ))}
           </ul>

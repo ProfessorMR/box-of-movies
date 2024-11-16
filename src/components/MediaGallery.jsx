@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   advancedFilterSeries,
   getGenreMovies,
   getGenreSeries,
 } from "@/src/services";
 
+import DropdownContext from "@/src/context/DropdownContext";
 import MediaBox from "@/src/components/MediaBox";
 import PaginateMedia from "@/src/components/PaginateMedia";
 
@@ -18,11 +19,18 @@ export default function MediaGallery({ isSeries }) {
   const [pageOffset, setPageOffset] = useState(0);
   const itemsPerPage = 20;
 
+  const { selectedItem } = useContext(DropdownContext);
+
   useEffect(() => {
     async function fetchAllSeries() {
       try {
         setLoading(true);
-        const allSeriesData = await advancedFilterSeries(pageOffset + 1);
+        const allSeriesData = await advancedFilterSeries({
+          page: pageOffset + 1,
+          year: selectedItem.year === null ? "" : selectedItem.year,
+          genre: selectedItem.genre === null ? "" : selectedItem.genre.id,
+          voteAvg: selectedItem.voteAvg === null ? "" : selectedItem.voteAvg,
+        });
         setAllSeriesData(allSeriesData);
       } catch (err) {
         console.error(err);
@@ -52,7 +60,7 @@ export default function MediaGallery({ isSeries }) {
     fetchAllSeries();
     fetchGenreMovies();
     fetchGenreSeries();
-  }, [pageOffset]);
+  }, [pageOffset, selectedItem.year, selectedItem.genre, selectedItem.voteAvg]);
 
   const genreSeriesLookup = genreSeriesData?.genres.reduce(
     (acc, { id, name }) => {

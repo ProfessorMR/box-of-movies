@@ -179,12 +179,12 @@ export async function searchSeriesOrMovies(searchName) {
   }
 }
 
-export async function advancedFilterSeries(
+export async function advancedFilterSeries({
   page = 1,
   year = "",
   genre = "",
-  voteAvg = ""
-) {
+  voteAvg = "",
+}) {
   try {
     const response = await fetch(
       `${SERVER_URL}/discover/tv?language=en-US&page=${page}&first_air_date_year=${year}
