@@ -49,7 +49,7 @@ export default function App() {
     },
     {
       image: Venom,
-      title: "Venom: Last Dance",
+      title: "Venom: The Last Dance",
       rating: 6.2,
       genre: "Superhero",
       quality: "4k",
