@@ -211,15 +211,15 @@ export async function advancedFilterSeries({
   }
 }
 
-export async function advancedFilterMovies(
+export async function advancedFilterMovies({
   page = 1,
   year = "",
   genre = "",
-  voteAvg = ""
-) {
+  voteAvg = "",
+}) {
   try {
     const response = await fetch(
-      `${SERVER_URL}/discover/movies?language=en-US&page=${page}&first_air_date_year=${year}
+      `${SERVER_URL}/discover/movie?language=en-US&page=${page}&primary_release_year=${year}
       &with_genres=${genre}&vote_average.gte=${voteAvg}`,
       {
         method: "GET",

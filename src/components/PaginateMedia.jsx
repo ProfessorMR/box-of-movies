@@ -5,19 +5,14 @@ import { useEffect, useState } from "react";
 
 import "@/src/styles/paginate-box.css";
 
-export default function PaginateMedia({
-  itemsPerPage,
-  count,
-  currentPage,
-  onPageChange,
-}) {
+export default function PaginateMedia({ count, currentPage, onPageChange }) {
   const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
     if (count) {
-      setPageCount(Math.ceil(count / itemsPerPage));
+      setPageCount(Math.ceil(count / 20));
     }
-  }, [count, itemsPerPage]);
+  }, [count]);
 
   const handlePageClick = (e) => {
     const newPage = e.selected;
@@ -34,7 +29,7 @@ export default function PaginateMedia({
         breakLabel="..."
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
-        pageCount={Math.ceil(pageCount / 20)}
+        pageCount={Math.ceil(pageCount) > 500 ? 500 : Math.ceil(pageCount)}
         forcePage={currentPage}
         previousLabel={"<"}
         nextLabel={">"}

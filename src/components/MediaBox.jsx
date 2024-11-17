@@ -13,6 +13,7 @@ export default function MediaBox({
   item,
   getGenreMoviesName,
   getGenreSeriesName,
+  isSeries,
 }) {
   const [loading, setLoading] = useState(true);
 
@@ -72,8 +73,10 @@ export default function MediaBox({
               <StarIcon className="text-primary text-xl mr-1" />
             </li>
             <li className="text-slate-300 text-sm">
-              {getGenreSeriesName(item.genre_ids[0]) ||
-                getGenreMoviesName(item.genre_ids[0])}
+              {isSeries
+                ? getGenreSeriesName(item.genre_ids[0])
+                : getGenreMoviesName(item.genre_ids[0])}
+
               <FormatListBulletedIcon className="text-white text-xl mr-1" />
             </li>
             <li className="text-slate-300 text-sm">
