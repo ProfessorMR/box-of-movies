@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
-
-import penguin from "@/public/images/sliders/arcane.avif";
-import poster from "@/public/images/poster.jpg";
+import { useEffect, useState } from "react";
+import { getCreditsSeries, getDetailSeries } from "@/src/services";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { IMAGE_URL } from "@/src/utils/data";
 
 import StarIcon from "@mui/icons-material/Star";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
@@ -17,18 +18,68 @@ import PublicIcon from "@mui/icons-material/Public";
 import LanguageIcon from "@mui/icons-material/Language";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import SyncIcon from "@mui/icons-material/Sync";
 
 import "@/src/styles/informationMedia.css";
 
-export default function InformationMedia({ isSeries }) {
+export default function InformationMedia({ params, isSeries }) {
+  const [detailSeriesData, setDetailSeriesData] = useState(null);
+  const [creditsSeriesData, setCreditsSeriesData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingCredits, setLoadingCredits] = useState(true);
+
+  const mediaParams = JSON.parse(params);
+
+  useEffect(() => {
+    try {
+      if (isSeries) {
+        async function fetchDetailSeries() {
+          const detailSeries = await getDetailSeries(mediaParams);
+
+          setDetailSeriesData(detailSeries);
+          setLoading(false);
+        }
+
+        async function fetchCreditsSeries() {
+          setLoadingCredits(true);
+          const creditsSeries = await getCreditsSeries(mediaParams);
+
+          setCreditsSeriesData(creditsSeries);
+          setLoadingCredits(false);
+        }
+
+        fetchDetailSeries();
+        fetchCreditsSeries();
+      }
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      setLoadingCredits(false);
+    }
+  }, [isSeries, mediaParams]);
+
   return (
     <>
       <div className="w-full py-10">
         <div className="w-full banner relative">
-          <Image src={penguin} alt="logo" className="w-full object-cover" />
-          <div className="absolute inset-0 z-20 pointer-events-none">
-            <div className="absolute bottom-0 right-0 w-full h-52 bg-gradient-to-t from-neutral-950 to-transparent"></div>
-          </div>
+          {loading ? (
+            <SkeletonTheme baseColor="#202020" highlightColor="#3c3c3c">
+              <Skeleton height={550} className="w-full" />
+            </SkeletonTheme>
+          ) : (
+            <>
+              <Image
+                src={`${IMAGE_URL}${detailSeriesData.backdrop_path}`}
+                alt={detailSeriesData.name}
+                width={200}
+                height={200}
+                className="w-full object-cover"
+              />
+              <div className="absolute inset-0 z-20 pointer-events-none">
+                <div className="absolute bottom-0 right-0 w-full h-52 bg-gradient-to-t from-neutral-950 to-transparent"></div>
+              </div>
+            </>
+          )}
         </div>
         <section className="information-media-area">
           <div className="container mx-auto px-4">
@@ -36,85 +87,167 @@ export default function InformationMedia({ isSeries }) {
               <div className="grid grid-cols-5 gap-4 -mt-40 z-50 relative">
                 <div className="col-span-4 py-6">
                   <div className="w-full">
-                    <h1 className="text-left text-5xl text-white font-extrabold">
-                      Arcane
-                    </h1>
-                    <ul className="flex justify-start flex-row-reverse gap-x-3 mt-3">
-                      <l className="text-slate-300 text-md">
-                        8.8
-                        <StarIcon className="text-primary text-3xl mr-1" />
-                      </l>
-                      <li className="text-slate-300 text-md">
-                        Action
-                        <FormatListBulletedIcon className="text-white text-3xl mr-1" />
-                      </li>
-                      <li className="text-slate-300 text-md">
-                        4k
-                        <TvIcon className="text-white text-3xl mr-1" />
-                      </li>
-                      <li className="text-slate-300 text-md">
-                        2021
-                        <CalendarMonthIcon className="text-white text-3xl mr-1" />
-                      </li>
-                    </ul>
+                    {loading ? (
+                      <SkeletonTheme
+                        baseColor="#202020"
+                        highlightColor="#3c3c3c"
+                      >
+                        <Skeleton
+                          width={300}
+                          height={50}
+                          className="mb-3 loading-box-movies-title"
+                        />
+                        <ul className="flex justify-start flex-row-reverse gap-x-3 mt-3">
+                          {Array.from({ length: 4 }).map((_, index) => (
+                            <li key={index} className="text-slate-300 text-md">
+                              <Skeleton
+                                width={60}
+                                height={20}
+                                className="inline-block mr-1"
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </SkeletonTheme>
+                    ) : (
+                      <>
+                        <h1 className="text-left text-5xl text-white font-extrabold">
+                          {detailSeriesData.name}
+                        </h1>
+                        <ul className="flex justify-start flex-row-reverse gap-x-3 mt-3">
+                          <li className="text-slate-300 text-md">
+                            {Number.parseFloat(
+                              detailSeriesData.vote_average
+                            ).toFixed(1)}
+                            <StarIcon className="text-primary text-3xl mr-1" />
+                          </li>
+                          <li className="text-slate-300 text-md">
+                            {detailSeriesData.genres[0].name}
+                            <FormatListBulletedIcon className="text-white text-3xl mr-1" />
+                          </li>
+                          <li className="text-slate-300 text-md">
+                            4k
+                            <TvIcon className="text-white text-3xl mr-1" />
+                          </li>
+                          <li className="text-slate-300 text-md">
+                            {detailSeriesData.first_air_date?.split("-")[0]}
+                            <CalendarMonthIcon className="text-white text-3xl mr-1" />
+                          </li>
+                        </ul>
+                      </>
+                    )}
                   </div>
+
                   <div className="w-full bg-neutral-700 mt-20 rounded-md shadow-md p-4">
                     <h3 className="mb-3 text-primary font-medium text-xl">
                       جزئیات سریال
                     </h3>
                     <hr />
-                    <div className="grid grid-cols-2 gap-2 mt-3">
-                      <div className="flex items-center">
-                        <span className="text-primary font-medium text-base my-1">
-                          <MovieIcon className="ml-1" />
-                          نام اصلی:
-                        </span>
-                        <p className="mr-2 text-white text-base">arcane</p>
+                    {loading ? (
+                      <SkeletonTheme
+                        baseColor="#202020"
+                        highlightColor="#3c3c3c"
+                      >
+                        <div className="grid grid-cols-2 gap-2 mt-3">
+                          {Array.from({ length: 6 }).map((_, index) => (
+                            <div key={index} className="flex items-center">
+                              <Skeleton
+                                width={100}
+                                height={20}
+                                className="mr-2"
+                              />
+                              <Skeleton width={150} height={20} />
+                            </div>
+                          ))}
+                        </div>
+                      </SkeletonTheme>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-2 mt-3">
+                        <div className="flex items-center">
+                          <span className="text-primary font-medium text-base my-1">
+                            <MovieIcon className="ml-1" />
+                            نام اصلی:
+                          </span>
+                          <p className="mr-2 text-white text-base">
+                            {detailSeriesData.original_name}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-primary font-medium text-base my-1">
+                            <CategoryIcon className="ml-1" />
+                            ژانر:
+                          </span>
+                          <p className="mr-2 text-white text-base">
+                            {detailSeriesData.genres
+                              .map((genre) => genre.name)
+                              .join(", ")}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-primary font-medium text-base my-1">
+                            <PublicIcon className="ml-1" />
+                            سال انتشار:
+                          </span>
+                          <p className="mr-2 text-white text-base">
+                            {detailSeriesData.first_air_date}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-primary font-medium text-base my-1">
+                            <LanguageIcon className="ml-1" />
+                            زبان:
+                          </span>
+                          <p className="mr-2 text-white text-base">
+                            {" "}
+                            {detailSeriesData.languages
+                              .map((lang) => lang)
+                              .join(", ")}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-primary font-medium text-base my-1">
+                            <SyncIcon className="ml-1" />
+                            وضعیت:
+                          </span>
+                          <p className="mr-2 text-white text-base">
+                            {detailSeriesData.status === "Ended"
+                              ? "پایان یافته"
+                              : detailSeriesData.status === "In Production"
+                              ? "در حال تولید"
+                              : "در حال پخش"}
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <span className="text-primary font-medium text-base my-1">
+                            <HowToRegIcon className="ml-1" />
+                            تعداد رای ها:
+                          </span>
+                          <p className="mr-2 text-white text-base">
+                            {detailSeriesData.vote_count}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <span className="text-primary font-medium text-base my-1">
-                          <CategoryIcon className="ml-1" />
-                          ژانر:
-                        </span>
-                        <p className="mr-2 text-white text-base">arcane</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-primary font-medium text-base my-1">
-                          <PublicIcon className="ml-1" />
-                          سال انتشار:
-                        </span>
-                        <p className="mr-2 text-white text-base">arcane</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-primary font-medium text-base my-1">
-                          <LanguageIcon className="ml-1" />
-                          زبان:
-                        </span>
-                        <p className="mr-2 text-white text-base">arcane</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-primary font-medium text-base my-1">
-                          <AttachMoneyIcon className="ml-1" />
-                          بودجه:
-                        </span>
-                        <p className="mr-2 text-white text-base">arcane</p>
-                      </div>
-                      <div className="flex items-center">
-                        <span className="text-primary font-medium text-base my-1">
-                          <HowToRegIcon className="ml-1" />
-                          تعداد رای ها:
-                        </span>
-                        <p className="mr-2 text-white text-base">arcane</p>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-end">
-                  <Image
-                    src={poster}
-                    alt="poster"
-                    className="w-full h-96 object-cover border-4 border-neutral-700 rounded-md"
-                  />
+                  {loading ? (
+                    <SkeletonTheme baseColor="#202020" highlightColor="#3c3c3c">
+                      <Skeleton
+                        height={384}
+                        width={256}
+                        className="rounded-md"
+                      />
+                    </SkeletonTheme>
+                  ) : (
+                    <Image
+                      src={`${IMAGE_URL}${detailSeriesData.seasons[0].poster_path}`}
+                      alt={detailSeriesData.name}
+                      width={200}
+                      height={200}
+                      className="w-full h-96 object-cover border-4 border-neutral-700 rounded-md"
+                    />
+                  )}
                 </div>
               </div>
               <div className="w-full bg-neutral-700 p-4 rounded-md">
@@ -122,83 +255,79 @@ export default function InformationMedia({ isSeries }) {
                   توضیحات
                 </h3>
                 <hr />
-                <p className="text-neutral-300 mt-3">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Aliquid provident libero in, totam et reiciendis natus,
-                  ratione at harum autem error incidunt laboriosam asperiores
-                  odit impedit, doloremque molestiae quos. Provident?
-                </p>
+                {loading ? (
+                  <SkeletonTheme baseColor="#202020" highlightColor="#3c3c3c">
+                    <Skeleton count={4} className="mt-3" />
+                  </SkeletonTheme>
+                ) : (
+                  <p className="text-neutral-300 mt-3">
+                    {detailSeriesData.overview}
+                  </p>
+                )}
               </div>
+
               <div className="w-full bg-neutral-700 p-4 rounded-md mt-6">
                 <h3 className="mb-3 text-primary font-medium text-xl">
                   بازیگران
                 </h3>
                 <hr />
-                <Swiper
-                  style={{
-                    "--swiper-navigation-color": "#fff",
-                    "--swiper-pagination-color": "#fff",
-                  }}
-                  loop={true}
-                  spaceBetween={10}
-                  slidesPerView={9}
-                  navigation={true}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
-                  modules={[FreeMode, Autoplay, Navigation]}
-                  className="h-full w-full mt-5"
-                >
-                  <SwiperSlide>
-                    <div className="flex items-center justify-center flex-col">
-                      <Image
-                        src={poster}
-                        alt="logo"
-                        className="w-28 h-28 rounded-full object-cover"
-                      />
-                      <p className="text-white font-medium text-base mt-2">
-                        ممد گور
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="flex items-center justify-center flex-col">
-                      <Image
-                        src={poster}
-                        alt="logo"
-                        className="w-28 h-28 rounded-full object-cover"
-                      />
-                      <p className="text-white font-medium text-base mt-2">
-                        ممد گور
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="flex items-center justify-center flex-col">
-                      <Image
-                        src={poster}
-                        alt="logo"
-                        className="w-28 h-28 rounded-full object-cover"
-                      />
-                      <p className="text-white font-medium text-base mt-2">
-                        ممد گور
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                  <SwiperSlide>
-                    <div className="flex items-center justify-center flex-col">
-                      <Image
-                        src={poster}
-                        alt="logo"
-                        className="w-28 h-28 rounded-full object-cover"
-                      />
-                      <p className="text-white font-medium text-base mt-2">
-                        ممد گور
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                </Swiper>
+                {loadingCredits ? (
+                  <div className="grid grid-cols-9 gap-4 mt-5">
+                    <SkeletonTheme baseColor="#202020" highlightColor="#999">
+                      {Array.from({ length: 9 }).map((_, index) => (
+                        <div key={index} className="flex flex-col items-center">
+                          <Skeleton
+                            circle
+                            height={100}
+                            width={100}
+                            className="w-28 h-28"
+                          />
+                          <Skeleton
+                            width={80}
+                            height={15}
+                            className="mt-2"
+                            baseColor="#303030"
+                            highlightColor="#3c3c3c"
+                          />
+                        </div>
+                      ))}
+                    </SkeletonTheme>
+                  </div>
+                ) : (
+                  <Swiper
+                    style={{
+                      "--swiper-navigation-color": "#fff",
+                      "--swiper-pagination-color": "#fff",
+                    }}
+                    loop={true}
+                    spaceBetween={10}
+                    slidesPerView={9}
+                    navigation={true}
+                    autoplay={{
+                      delay: 5000,
+                      disableOnInteraction: false,
+                    }}
+                    modules={[FreeMode, Autoplay, Navigation]}
+                    className="h-full w-full mt-5"
+                  >
+                    {creditsSeriesData.cast.map((cast, index) => (
+                      <SwiperSlide key={index}>
+                        <div className="flex items-center justify-center flex-col">
+                          <Image
+                            src={`${IMAGE_URL}${cast.profile_path}`}
+                            alt={cast.name}
+                            width={200}
+                            height={200}
+                            className="w-28 h-28 rounded-full object-cover"
+                          />
+                          <p className="text-white font-medium text-base mt-2">
+                            {cast.name}
+                          </p>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                )}
               </div>
             </div>
           </div>

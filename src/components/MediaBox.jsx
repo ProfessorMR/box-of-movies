@@ -55,7 +55,7 @@ export default function MediaBox({
 
   return (
     <div className="transition ease-in-out border hover:border-primary rounded-md">
-      <Link href="#">
+      <Link href={`${isSeries ? `/tv/${item.id}` : `/movies/${item.id}`}`}>
         <Image
           src={`${IMAGE_URL}${item.poster_path}`}
           alt={item.name || item.title}

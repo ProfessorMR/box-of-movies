@@ -6,12 +6,12 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 
-export default function SingleTv() {
+export default async function SingleTv({ params }) {
   return (
     <>
       <Header />
       <main className="py-10">
-        <InformationMedia isSeries={true} />
+        <InformationMedia params={(await params).id} isSeries={true} />
       </main>
       <Footer />
     </>
