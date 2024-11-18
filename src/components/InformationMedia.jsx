@@ -366,7 +366,7 @@ export default function InformationMedia({ params, isSeries }) {
                               height={200}
                               className="w-28 h-28 rounded-full object-cover"
                             />
-                            <p className="text-white font-medium text-base mt-2">
+                            <p className="text-white font-medium text-base mt-2 text-center">
                               {cast.name}
                             </p>
                           </div>

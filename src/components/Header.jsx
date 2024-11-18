@@ -6,11 +6,11 @@ import Link from "next/link";
 import { IMAGE_URL } from "@/src/utils/data";
 import { searchSeriesOrMovies } from "@/src/services/";
 
-import SearchIcon from "@mui/icons-material/Search";
 import StarIcon from "@mui/icons-material/Star";
 
 import Logo from "@/public/images/logo.png";
 import EmptySearch from "@/public/images/error/empty-search.svg";
+import BlankImage from "@/public/images/error/blank-image.jpg";
 
 import "@/src/styles/header.css";
 
@@ -58,28 +58,22 @@ export default function Header() {
           <Image src={Logo} className="w-40" alt="logo" />
           <div className="flex items-center">
             <Link
-              href="#"
+              href="/"
               className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
             >
               خانه
             </Link>
             <Link
-              href="#"
+              href="/movies"
               className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
             >
               فیلم ها
             </Link>
             <Link
-              href="#"
+              href="/tv"
               className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
             >
               سریال ها
-            </Link>
-            <Link
-              href="#"
-              className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
-            >
-              بالاترین امتیاز ها
             </Link>
           </div>
           <form ref={formRef} className="relative w-80 searchbar-form z-10">
@@ -91,12 +85,6 @@ export default function Header() {
               onChange={(e) => setSearchName(e.target.value)}
               onFocus={() => setShowResults(true)}
             />
-            <button
-              type="submit"
-              className="bg-primary py-2 px-1.5 absolute flex items-center justify-center rounded"
-            >
-              <SearchIcon className="text-white" />
-            </button>
             {showResults && (
               <div className="absolute top-10 w-full bg-white rounded-b-md -z-10 py-3 px-2">
                 {searchResult !== null && searchResult.results.length !== 0 ? (
@@ -104,7 +92,12 @@ export default function Header() {
                     .filter((item) => item.media_type !== "person")
                     .slice(0, 3)
                     .map((item, index) => (
-                      <div
+                      <Link
+                        href={
+                          item.first_air_date
+                            ? `/tv/${item.id}`
+                            : `/movies/${item.id}`
+                        }
                         className="flex items-center justify-between py-2"
                         key={index}
                       >
@@ -125,14 +118,14 @@ export default function Header() {
                           src={
                             item.poster_path
                               ? `${IMAGE_URL}${item.poster_path}`
-                              : null
+                              : BlankImage
                           }
                           alt={item.title || item.name}
                           className="w-28 h-28 object-cover"
                           width={112}
                           height={160}
                         />
-                      </div>
+                      </Link>
                     ))
                 ) : (
                   <div className="flex items-center justify-center flex-col p-5">
