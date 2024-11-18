@@ -4,7 +4,12 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 import { useEffect, useState } from "react";
-import { getCreditsSeries, getDetailSeries } from "@/src/services";
+import {
+  getCreditsMovie,
+  getCreditsSeries,
+  getDetailMovie,
+  getDetailSeries,
+} from "@/src/services";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { IMAGE_URL } from "@/src/utils/data";
 
@@ -23,39 +28,43 @@ import SyncIcon from "@mui/icons-material/Sync";
 import "@/src/styles/informationMedia.css";
 
 export default function InformationMedia({ params, isSeries }) {
-  const [detailSeriesData, setDetailSeriesData] = useState(null);
-  const [creditsSeriesData, setCreditsSeriesData] = useState(null);
+  const [detailData, setDetailData] = useState(null);
+  const [creditsData, setCreditsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loadingCredits, setLoadingCredits] = useState(true);
 
   const mediaParams = JSON.parse(params);
 
   useEffect(() => {
-    try {
-      if (isSeries) {
-        async function fetchDetailSeries() {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        setLoadingCredits(true);
+
+        if (isSeries) {
           const detailSeries = await getDetailSeries(mediaParams);
-
-          setDetailSeriesData(detailSeries);
-          setLoading(false);
-        }
-
-        async function fetchCreditsSeries() {
-          setLoadingCredits(true);
           const creditsSeries = await getCreditsSeries(mediaParams);
 
-          setCreditsSeriesData(creditsSeries);
-          setLoadingCredits(false);
+          setDetailData(detailSeries);
+          setCreditsData(creditsSeries);
+        } else {
+          const detailMovie = await getDetailMovie(mediaParams);
+          const creditsMovie = await getCreditsMovie(mediaParams);
+
+          setDetailData(detailMovie);
+          setCreditsData(creditsMovie);
         }
 
-        fetchDetailSeries();
-        fetchCreditsSeries();
+        setLoading(false);
+        setLoadingCredits(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+        setLoadingCredits(false);
       }
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-      setLoadingCredits(false);
     }
+
+    fetchData();
   }, [isSeries, mediaParams]);
 
   return (
@@ -69,8 +78,8 @@ export default function InformationMedia({ params, isSeries }) {
           ) : (
             <>
               <Image
-                src={`${IMAGE_URL}${detailSeriesData.backdrop_path}`}
-                alt={detailSeriesData.name}
+                src={`${IMAGE_URL}${detailData.backdrop_path}`}
+                alt={detailData.name || detailData.title}
                 width={200}
                 height={200}
                 className="w-full object-cover"
@@ -112,17 +121,17 @@ export default function InformationMedia({ params, isSeries }) {
                     ) : (
                       <>
                         <h1 className="text-left text-5xl text-white font-extrabold">
-                          {detailSeriesData.name}
+                          {detailData.name || detailData.title}
                         </h1>
                         <ul className="flex justify-start flex-row-reverse gap-x-3 mt-3">
                           <li className="text-slate-300 text-md">
-                            {Number.parseFloat(
-                              detailSeriesData.vote_average
-                            ).toFixed(1)}
+                            {Number.parseFloat(detailData.vote_average).toFixed(
+                              1
+                            )}
                             <StarIcon className="text-primary text-3xl mr-1" />
                           </li>
                           <li className="text-slate-300 text-md">
-                            {detailSeriesData.genres[0].name}
+                            {detailData.genres[0].name}
                             <FormatListBulletedIcon className="text-white text-3xl mr-1" />
                           </li>
                           <li className="text-slate-300 text-md">
@@ -130,17 +139,21 @@ export default function InformationMedia({ params, isSeries }) {
                             <TvIcon className="text-white text-3xl mr-1" />
                           </li>
                           <li className="text-slate-300 text-md">
-                            {detailSeriesData.first_air_date?.split("-")[0]}
+                            {
+                              (
+                                detailData.first_air_date?.split("-")[0] ||
+                                detailData.release_date
+                              )?.split("-")[0]
+                            }
                             <CalendarMonthIcon className="text-white text-3xl mr-1" />
                           </li>
                         </ul>
                       </>
                     )}
                   </div>
-
                   <div className="w-full bg-neutral-700 mt-20 rounded-md shadow-md p-4">
                     <h3 className="mb-3 text-primary font-medium text-xl">
-                      جزئیات سریال
+                      {isSeries ? "جزئیات سریال" : "جزئیات فیلم"}
                     </h3>
                     <hr />
                     {loading ? (
@@ -169,7 +182,8 @@ export default function InformationMedia({ params, isSeries }) {
                             نام اصلی:
                           </span>
                           <p className="mr-2 text-white text-base">
-                            {detailSeriesData.original_name}
+                            {detailData.original_name ||
+                              detailData.original_title}
                           </p>
                         </div>
                         <div className="flex items-center">
@@ -178,7 +192,7 @@ export default function InformationMedia({ params, isSeries }) {
                             ژانر:
                           </span>
                           <p className="mr-2 text-white text-base">
-                            {detailSeriesData.genres
+                            {detailData.genres
                               .map((genre) => genre.name)
                               .join(", ")}
                           </p>
@@ -189,41 +203,70 @@ export default function InformationMedia({ params, isSeries }) {
                             سال انتشار:
                           </span>
                           <p className="mr-2 text-white text-base">
-                            {detailSeriesData.first_air_date}
+                            {detailData.first_air_date ||
+                              detailData.release_date}
                           </p>
                         </div>
-                        <div className="flex items-center">
-                          <span className="text-primary font-medium text-base my-1">
-                            <LanguageIcon className="ml-1" />
-                            زبان:
-                          </span>
-                          <p className="mr-2 text-white text-base">
-                            {" "}
-                            {detailSeriesData.languages
-                              .map((lang) => lang)
-                              .join(", ")}
-                          </p>
-                        </div>
-                        <div className="flex items-center">
-                          <span className="text-primary font-medium text-base my-1">
-                            <SyncIcon className="ml-1" />
-                            وضعیت:
-                          </span>
-                          <p className="mr-2 text-white text-base">
-                            {detailSeriesData.status === "Ended"
-                              ? "پایان یافته"
-                              : detailSeriesData.status === "In Production"
-                              ? "در حال تولید"
-                              : "در حال پخش"}
-                          </p>
-                        </div>
+                        {isSeries ? (
+                          <div className="flex items-center">
+                            <span className="text-primary font-medium text-base my-1">
+                              <LanguageIcon className="ml-1" />
+                              زبان:
+                            </span>
+                            <p className="mr-2 text-white text-base">
+                              {" "}
+                              {detailData.languages
+                                .map((lang) => lang)
+                                .join(", ")}
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="flex items-center">
+                            <span className="text-primary font-medium text-base my-1">
+                              <LanguageIcon className="ml-1" />
+                              زبان:
+                            </span>
+                            <p className="mr-2 text-white text-base">
+                              {detailData.origin_country}
+                            </p>
+                          </div>
+                        )}
+
+                        {isSeries ? (
+                          <div className="flex items-center">
+                            <span className="text-primary font-medium text-base my-1">
+                              <SyncIcon className="ml-1" />
+                              وضعیت:
+                            </span>
+
+                            <p className="mr-2 text-white text-base">
+                              {detailData.status === "Ended"
+                                ? "پایان یافته"
+                                : detailData.status === "In Production"
+                                ? "در حال تولید"
+                                : "در حال پخش"}
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="flex items-center">
+                            <span className="text-primary font-medium text-base my-1">
+                              <AttachMoneyIcon className="ml-1" />
+                              بودجه:
+                            </span>
+
+                            <p className="mr-2 text-white text-base">
+                              {detailData.budget}
+                            </p>
+                          </div>
+                        )}
+
                         <div className="flex items-center">
                           <span className="text-primary font-medium text-base my-1">
                             <HowToRegIcon className="ml-1" />
                             تعداد رای ها:
                           </span>
                           <p className="mr-2 text-white text-base">
-                            {detailSeriesData.vote_count}
+                            {detailData.vote_count}
                           </p>
                         </div>
                       </div>
@@ -241,8 +284,12 @@ export default function InformationMedia({ params, isSeries }) {
                     </SkeletonTheme>
                   ) : (
                     <Image
-                      src={`${IMAGE_URL}${detailSeriesData.seasons[0].poster_path}`}
-                      alt={detailSeriesData.name}
+                      src={
+                        isSeries
+                          ? `${IMAGE_URL}${detailData.seasons[0].poster_path}`
+                          : `${IMAGE_URL}${detailData.poster_path}`
+                      }
+                      alt={detailData.name || detailData.title}
                       width={200}
                       height={200}
                       className="w-full h-96 object-cover border-4 border-neutral-700 rounded-md"
@@ -260,9 +307,7 @@ export default function InformationMedia({ params, isSeries }) {
                     <Skeleton count={4} className="mt-3" />
                   </SkeletonTheme>
                 ) : (
-                  <p className="text-neutral-300 mt-3">
-                    {detailSeriesData.overview}
-                  </p>
+                  <p className="text-neutral-300 mt-3">{detailData.overview}</p>
                 )}
               </div>
 
@@ -310,22 +355,28 @@ export default function InformationMedia({ params, isSeries }) {
                     modules={[FreeMode, Autoplay, Navigation]}
                     className="h-full w-full mt-5"
                   >
-                    {creditsSeriesData.cast.map((cast, index) => (
-                      <SwiperSlide key={index}>
-                        <div className="flex items-center justify-center flex-col">
-                          <Image
-                            src={`${IMAGE_URL}${cast.profile_path}`}
-                            alt={cast.name}
-                            width={200}
-                            height={200}
-                            className="w-28 h-28 rounded-full object-cover"
-                          />
-                          <p className="text-white font-medium text-base mt-2">
-                            {cast.name}
-                          </p>
-                        </div>
-                      </SwiperSlide>
-                    ))}
+                    {creditsData.cast.length > 0 ? (
+                      creditsData.cast.map((cast, index) => (
+                        <SwiperSlide key={index}>
+                          <div className="flex items-center justify-center flex-col">
+                            <Image
+                              src={`${IMAGE_URL}${cast.profile_path}`}
+                              alt={cast.name}
+                              width={200}
+                              height={200}
+                              className="w-28 h-28 rounded-full object-cover"
+                            />
+                            <p className="text-white font-medium text-base mt-2">
+                              {cast.name}
+                            </p>
+                          </div>
+                        </SwiperSlide>
+                      ))
+                    ) : (
+                      <p className="w-full py-3 text-center text-white font-medium">
+                        متاسفانه بازیگری وجود ندارد☹️
+                      </p>
+                    )}
                   </Swiper>
                 )}
               </div>
