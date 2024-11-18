@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 
 import penguin from "@/public/images/sliders/arcane.avif";
 import poster from "@/public/images/poster.jpg";
@@ -28,7 +32,7 @@ export default function InformationMedia({ isSeries }) {
         </div>
         <section className="information-media-area">
           <div className="container mx-auto px-4">
-            <div>
+            <div className="w-full">
               <div className="grid grid-cols-5 gap-4 -mt-40 z-50 relative">
                 <div className="col-span-4 py-6">
                   <div className="w-full">
@@ -54,51 +58,53 @@ export default function InformationMedia({ isSeries }) {
                       </li>
                     </ul>
                   </div>
-                  <div className="w-full bg-neutral-700 mt-20 rounded-md shadow-md">
-                    <h3>جزئیات سریال</h3>
+                  <div className="w-full bg-neutral-700 mt-20 rounded-md shadow-md p-4">
+                    <h3 className="mb-3 text-primary font-medium text-xl">
+                      جزئیات سریال
+                    </h3>
                     <hr />
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <span>
-                          <MovieIcon />
+                    <div className="grid grid-cols-2 gap-2 mt-3">
+                      <div className="flex items-center">
+                        <span className="text-primary font-medium text-base my-1">
+                          <MovieIcon className="ml-1" />
                           نام اصلی:
                         </span>
-                        <p>arcane</p>
+                        <p className="mr-2 text-white text-base">arcane</p>
                       </div>
-                      <div>
-                        <span>
-                          <CategoryIcon />
-                          دسته بندی ها:
+                      <div className="flex items-center">
+                        <span className="text-primary font-medium text-base my-1">
+                          <CategoryIcon className="ml-1" />
+                          ژانر:
                         </span>
-                        <p>arcane</p>
+                        <p className="mr-2 text-white text-base">arcane</p>
                       </div>
-                      <div>
-                        <span>
-                          <PublicIcon />
-                          کشور:
+                      <div className="flex items-center">
+                        <span className="text-primary font-medium text-base my-1">
+                          <PublicIcon className="ml-1" />
+                          سال انتشار:
                         </span>
-                        <p>arcane</p>
+                        <p className="mr-2 text-white text-base">arcane</p>
                       </div>
-                      <div>
-                        <span>
-                          <LanguageIcon />
+                      <div className="flex items-center">
+                        <span className="text-primary font-medium text-base my-1">
+                          <LanguageIcon className="ml-1" />
                           زبان:
                         </span>
-                        <p>arcane</p>
+                        <p className="mr-2 text-white text-base">arcane</p>
                       </div>
-                      <div>
-                        <span>
-                          <AttachMoneyIcon />
+                      <div className="flex items-center">
+                        <span className="text-primary font-medium text-base my-1">
+                          <AttachMoneyIcon className="ml-1" />
                           بودجه:
                         </span>
-                        <p>arcane</p>
+                        <p className="mr-2 text-white text-base">arcane</p>
                       </div>
-                      <div>
-                        <span>
-                          <HowToRegIcon />
+                      <div className="flex items-center">
+                        <span className="text-primary font-medium text-base my-1">
+                          <HowToRegIcon className="ml-1" />
                           تعداد رای ها:
                         </span>
-                        <p>arcane</p>
+                        <p className="mr-2 text-white text-base">arcane</p>
                       </div>
                     </div>
                   </div>
@@ -110,6 +116,89 @@ export default function InformationMedia({ isSeries }) {
                     className="w-full h-96 object-cover border-4 border-neutral-700 rounded-md"
                   />
                 </div>
+              </div>
+              <div className="w-full bg-neutral-700 p-4 rounded-md">
+                <h3 className="mb-3 text-primary font-medium text-xl">
+                  توضیحات
+                </h3>
+                <hr />
+                <p className="text-neutral-300 mt-3">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Aliquid provident libero in, totam et reiciendis natus,
+                  ratione at harum autem error incidunt laboriosam asperiores
+                  odit impedit, doloremque molestiae quos. Provident?
+                </p>
+              </div>
+              <div className="w-full bg-neutral-700 p-4 rounded-md mt-6">
+                <h3 className="mb-3 text-primary font-medium text-xl">
+                  بازیگران
+                </h3>
+                <hr />
+                <Swiper
+                  style={{
+                    "--swiper-navigation-color": "#fff",
+                    "--swiper-pagination-color": "#fff",
+                  }}
+                  loop={true}
+                  spaceBetween={10}
+                  slidesPerView={9}
+                  navigation={true}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
+                  modules={[FreeMode, Autoplay, Navigation]}
+                  className="h-full w-full mt-5"
+                >
+                  <SwiperSlide>
+                    <div className="flex items-center justify-center flex-col">
+                      <Image
+                        src={poster}
+                        alt="logo"
+                        className="w-28 h-28 rounded-full object-cover"
+                      />
+                      <p className="text-white font-medium text-base mt-2">
+                        ممد گور
+                      </p>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <div className="flex items-center justify-center flex-col">
+                      <Image
+                        src={poster}
+                        alt="logo"
+                        className="w-28 h-28 rounded-full object-cover"
+                      />
+                      <p className="text-white font-medium text-base mt-2">
+                        ممد گور
+                      </p>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <div className="flex items-center justify-center flex-col">
+                      <Image
+                        src={poster}
+                        alt="logo"
+                        className="w-28 h-28 rounded-full object-cover"
+                      />
+                      <p className="text-white font-medium text-base mt-2">
+                        ممد گور
+                      </p>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <div className="flex items-center justify-center flex-col">
+                      <Image
+                        src={poster}
+                        alt="logo"
+                        className="w-28 h-28 rounded-full object-cover"
+                      />
+                      <p className="text-white font-medium text-base mt-2">
+                        ممد گور
+                      </p>
+                    </div>
+                  </SwiperSlide>
+                </Swiper>
               </div>
             </div>
           </div>

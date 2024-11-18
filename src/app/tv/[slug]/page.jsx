@@ -2,7 +2,11 @@ import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import InformationMedia from "@/src/components/InformationMedia";
 
-export default function singleTv() {
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/navigation";
+
+export default function SingleTv() {
   return (
     <>
       <Header />

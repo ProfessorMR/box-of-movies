@@ -242,3 +242,100 @@ export async function advancedFilterMovies({
     throw err;
   }
 }
+export async function getDetailSeries(id) {
+  try {
+    const response = await fetch(`${SERVER_URL}/tv/${id}?language=en-US`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+export async function getDetailMovie(id) {
+  try {
+    const response = await fetch(`${SERVER_URL}/movie/${id}?language=en-US`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+export async function getCreditsSeries(id) {
+  try {
+    const response = await fetch(
+      `${SERVER_URL}/tv/${id}/credits?language=en-US`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+export async function getCreditsMovie(id) {
+  try {
+    const response = await fetch(
+      `${SERVER_URL}/movie/${id}/credits?language=en-US`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${ACCESS_TOKEN}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("!Error");
+    }
+
+    const data = response.json();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
