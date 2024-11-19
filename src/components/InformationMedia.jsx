@@ -1,75 +1,27 @@
 "use client";
 
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, FreeMode, Navigation } from "swiper/modules";
-import { useEffect, useState } from "react";
-import {
-  getCreditsMovie,
-  getCreditsSeries,
-  getDetailMovie,
-  getDetailSeries,
-} from "@/src/services";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { IMAGE_URL } from "@/src/utils/data";
+// import { IMAGE_URL } from "@/src/utils/data";
 
 import StarIcon from "@mui/icons-material/Star";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import TvIcon from "@mui/icons-material/Tv";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import MovieIcon from "@mui/icons-material/Movie";
-import CategoryIcon from "@mui/icons-material/Category";
-import PublicIcon from "@mui/icons-material/Public";
-import LanguageIcon from "@mui/icons-material/Language";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import SyncIcon from "@mui/icons-material/Sync";
 
 import BlankImage from "@/public/images/error/blank-image.jpg";
 import BlankImage2 from "@/public/images/error/blank-image-2.jpg";
-import BlankImagePerson from "@/public/images/error/blank-image-person.avif";
 
 import "@/src/styles/informationMedia.css";
+import CastDetail from "./CastDetail";
+import { useInformationMedia } from "../hooks/useInformationMedia";
+import InformationMediaDetails from "./InformationMediaDetails";
 
 export default function InformationMedia({ params, isSeries }) {
-  const [detailData, setDetailData] = useState(null);
-  const [creditsData, setCreditsData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [loadingCredits, setLoadingCredits] = useState(true);
-
   const mediaParams = JSON.parse(params);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        setLoadingCredits(true);
-
-        if (isSeries) {
-          const detailSeries = await getDetailSeries(mediaParams);
-          const creditsSeries = await getCreditsSeries(mediaParams);
-
-          setDetailData(detailSeries);
-          setCreditsData(creditsSeries);
-        } else {
-          const detailMovie = await getDetailMovie(mediaParams);
-          const creditsMovie = await getCreditsMovie(mediaParams);
-
-          setDetailData(detailMovie);
-          setCreditsData(creditsMovie);
-        }
-
-        setLoading(false);
-        setLoadingCredits(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-        setLoadingCredits(false);
-      }
-    }
-
-    fetchData();
-  }, [isSeries, mediaParams]);
+  const { detailData, creditsData, loading, loadingCredits } =
+    useInformationMedia({ mediaParams, isSeries });
 
   return (
     <>
@@ -164,127 +116,11 @@ export default function InformationMedia({ params, isSeries }) {
                       </>
                     )}
                   </div>
-                  <div className="w-full bg-neutral-700 mt-20 rounded-md shadow-md p-4">
-                    <h3 className="mb-3 text-primary font-medium text-xl">
-                      {isSeries ? "جزئیات سریال" : "جزئیات فیلم"}
-                    </h3>
-                    <hr />
-                    {loading ? (
-                      <SkeletonTheme
-                        baseColor="#202020"
-                        highlightColor="#3c3c3c"
-                      >
-                        <div className="grid grid-cols-2 gap-2 mt-3">
-                          {Array.from({ length: 6 }).map((_, index) => (
-                            <div key={index} className="flex items-center">
-                              <Skeleton
-                                width={100}
-                                height={20}
-                                className="mr-2"
-                              />
-                              <Skeleton width={150} height={20} />
-                            </div>
-                          ))}
-                        </div>
-                      </SkeletonTheme>
-                    ) : (
-                      <div className="grid grid-cols-2 gap-2 mt-3">
-                        <div className="flex items-center">
-                          <span className="text-primary font-medium text-base my-1">
-                            <MovieIcon className="ml-1" />
-                            نام اصلی:
-                          </span>
-                          <p className="mr-2 text-white text-base">
-                            {detailData.original_name ||
-                              detailData.original_title}
-                          </p>
-                        </div>
-                        <div className="flex items-center">
-                          <span className="text-primary font-medium text-base my-1">
-                            <CategoryIcon className="ml-1" />
-                            ژانر:
-                          </span>
-                          <p className="mr-2 text-white text-base">
-                            {detailData.genres
-                              .map((genre) => genre.name)
-                              .join(", ")}
-                          </p>
-                        </div>
-                        <div className="flex items-center">
-                          <span className="text-primary font-medium text-base my-1">
-                            <PublicIcon className="ml-1" />
-                            سال انتشار:
-                          </span>
-                          <p className="mr-2 text-white text-base">
-                            {detailData.first_air_date ||
-                              detailData.release_date}
-                          </p>
-                        </div>
-                        {isSeries ? (
-                          <div className="flex items-center">
-                            <span className="text-primary font-medium text-base my-1">
-                              <LanguageIcon className="ml-1" />
-                              زبان:
-                            </span>
-                            <p className="mr-2 text-white text-base">
-                              {" "}
-                              {detailData.languages
-                                .map((lang) => lang)
-                                .join(", ")}
-                            </p>
-                          </div>
-                        ) : (
-                          <div className="flex items-center">
-                            <span className="text-primary font-medium text-base my-1">
-                              <LanguageIcon className="ml-1" />
-                              زبان:
-                            </span>
-                            <p className="mr-2 text-white text-base">
-                              {detailData.origin_country}
-                            </p>
-                          </div>
-                        )}
-
-                        {isSeries ? (
-                          <div className="flex items-center">
-                            <span className="text-primary font-medium text-base my-1">
-                              <SyncIcon className="ml-1" />
-                              وضعیت:
-                            </span>
-
-                            <p className="mr-2 text-white text-base">
-                              {detailData.status === "Ended"
-                                ? "پایان یافته"
-                                : detailData.status === "In Production"
-                                ? "در حال تولید"
-                                : "در حال پخش"}
-                            </p>
-                          </div>
-                        ) : (
-                          <div className="flex items-center">
-                            <span className="text-primary font-medium text-base my-1">
-                              <AttachMoneyIcon className="ml-1" />
-                              بودجه:
-                            </span>
-
-                            <p className="mr-2 text-white text-base">
-                              {detailData.budget}
-                            </p>
-                          </div>
-                        )}
-
-                        <div className="flex items-center">
-                          <span className="text-primary font-medium text-base my-1">
-                            <HowToRegIcon className="ml-1" />
-                            تعداد رای ها:
-                          </span>
-                          <p className="mr-2 text-white text-base">
-                            {detailData.vote_count}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  <InformationMediaDetails
+                    detailData={detailData}
+                    isSeries={isSeries}
+                    loading={loading}
+                  />
                 </div>
                 <div className="flex justify-end">
                   {loading ? (
@@ -331,91 +167,10 @@ export default function InformationMedia({ params, isSeries }) {
                   <p className="text-neutral-300 mt-3">{detailData.overview}</p>
                 )}
               </div>
-
-              <div className="w-full bg-neutral-700 p-4 rounded-md mt-6">
-                <h3 className="mb-3 text-primary font-medium text-xl">
-                  بازیگران
-                </h3>
-                <hr />
-                {loadingCredits ? (
-                  <div className="grid grid-cols-9 gap-4 mt-5">
-                    <SkeletonTheme baseColor="#202020" highlightColor="#999">
-                      {Array.from({ length: 9 }).map((_, index) => (
-                        <div key={index} className="flex flex-col items-center">
-                          <Skeleton
-                            circle
-                            height={100}
-                            width={100}
-                            className="w-28 h-28"
-                          />
-                          <Skeleton
-                            width={80}
-                            height={15}
-                            className="mt-2"
-                            baseColor="#303030"
-                            highlightColor="#3c3c3c"
-                          />
-                        </div>
-                      ))}
-                    </SkeletonTheme>
-                  </div>
-                ) : (
-                  <Swiper
-                    style={{
-                      "--swiper-navigation-color": "#fff",
-                      "--swiper-pagination-color": "#fff",
-                    }}
-                    loop={true}
-                    spaceBetween={10}
-                    slidesPerView={9}
-                    navigation={true}
-                    autoplay={{
-                      delay: 5000,
-                      disableOnInteraction: false,
-                    }}
-                    modules={[FreeMode, Autoplay, Navigation]}
-                    className="h-full w-full mt-5"
-                  >
-                    {creditsData.cast.length > 0 ? (
-                      creditsData.cast.map((cast, index) => (
-                        <SwiperSlide key={index}>
-                          <div className="flex items-center justify-center flex-col">
-                            {/* <Image
-                              src={`${IMAGE_URL}${cast.profile_path}`}
-                              alt={cast.name}
-                              width={200}
-                              height={200}
-                              className="w-28 h-28 rounded-full object-cover"
-                            /> */}
-                            {/* <Image
-                              src={`${IMAGE_URL}${cast.profile_path}`}
-                              alt={cast.name}
-                              width={200}
-                              height={200}
-                              className="w-28 h-28 rounded-full object-cover"
-                            /> */}
-                            <Image
-                              src={BlankImagePerson}
-                              alt={cast.name}
-                              width={200}
-                              height={200}
-                              className="w-28 h-28 rounded-full object-cover"
-                              objectFit="cover"
-                            />
-                            <p className="text-white font-medium text-base mt-2 text-center">
-                              {cast.name}
-                            </p>
-                          </div>
-                        </SwiperSlide>
-                      ))
-                    ) : (
-                      <p className="w-full py-3 text-center text-white font-medium">
-                        متاسفانه بازیگری وجود ندارد☹️
-                      </p>
-                    )}
-                  </Swiper>
-                )}
-              </div>
+              <CastDetail
+                creditsData={creditsData}
+                loadingCredits={loadingCredits}
+              />
             </div>
           </div>
         </section>
