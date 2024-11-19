@@ -165,7 +165,11 @@ export default function InformationMedia({ params, isSeries }) {
                     <Skeleton count={4} className="mt-3" />
                   </SkeletonTheme>
                 ) : (
-                  <p className="text-neutral-300 mt-3">{detailData.overview}</p>
+                  <p className="text-neutral-300 mt-3">
+                    {detailData.overview
+                      ? detailData
+                      : "متاسفانه توضیحی وجود ندارد☹️"}
+                  </p>
                 )}
               </div>
               <CastDetail
