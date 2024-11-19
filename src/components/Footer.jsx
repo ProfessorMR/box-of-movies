@@ -16,16 +16,13 @@ export default function Footer() {
         <div className="flex items-center justify-center flex-col">
           <ul className="flex gap-x-8">
             <li className="text-white text-lg font-medium">
-              <Link href="">برترین فیلم ها</Link>
+              <Link href="/tv">سریال ها</Link>
             </li>
             <li className="text-white text-lg font-medium">
-              <Link href="">سریال ها</Link>
+              <Link href="/movies">فیلم ها</Link>
             </li>
             <li className="text-white text-lg font-medium">
-              <Link href="">فیلم ها</Link>
-            </li>
-            <li className="text-white text-lg font-medium">
-              <Link href="">خانه</Link>
+              <Link href="/">خانه</Link>
             </li>
           </ul>
           <ul className="flex gap-x-4 mt-8">

@@ -25,6 +25,10 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import SyncIcon from "@mui/icons-material/Sync";
 
+import BlankImage from "@/public/images/error/blank-image.jpg";
+import BlankImage2 from "@/public/images/error/blank-image-2.jpg";
+import BlankImagePerson from "@/public/images/error/blank-image-person.avif";
+
 import "@/src/styles/informationMedia.css";
 
 export default function InformationMedia({ params, isSeries }) {
@@ -77,12 +81,21 @@ export default function InformationMedia({ params, isSeries }) {
             </SkeletonTheme>
           ) : (
             <>
-              <Image
+              {/* Changing the static image with the image that comes from the api */}
+              {/* <Image
                 src={`${IMAGE_URL}${detailData.backdrop_path}`}
                 alt={detailData.name || detailData.title}
                 width={200}
                 height={200}
                 className="w-full object-cover"
+              /> */}
+              <Image
+                src={BlankImage2}
+                alt={detailData.name || detailData.title}
+                width={1000}
+                height={200}
+                className="w-full object-cover"
+                objectFit="cover"
               />
               <div className="absolute inset-0 z-20 pointer-events-none">
                 <div className="absolute bottom-0 right-0 w-full h-52 bg-gradient-to-t from-neutral-950 to-transparent"></div>
@@ -283,15 +296,23 @@ export default function InformationMedia({ params, isSeries }) {
                       />
                     </SkeletonTheme>
                   ) : (
+                    // <Image
+                    //   src={
+                    //     isSeries
+                    //       ? `${IMAGE_URL}${detailData.seasons[0].poster_path}`
+                    //       : `${IMAGE_URL}${detailData.poster_path}`
+                    //   }
+                    //   alt={detailData.name || detailData.title}
+                    //   width={200}
+                    //   height={200}
+                    //   className="w-full h-96 object-cover border-4 border-neutral-700 rounded-md"
+                    // />
                     <Image
-                      src={
-                        isSeries
-                          ? `${IMAGE_URL}${detailData.seasons[0].poster_path}`
-                          : `${IMAGE_URL}${detailData.poster_path}`
-                      }
+                      src={BlankImage}
                       alt={detailData.name || detailData.title}
-                      width={200}
+                      width={1000}
                       height={200}
+                      objectFit="cover"
                       className="w-full h-96 object-cover border-4 border-neutral-700 rounded-md"
                     />
                   )}
@@ -359,12 +380,27 @@ export default function InformationMedia({ params, isSeries }) {
                       creditsData.cast.map((cast, index) => (
                         <SwiperSlide key={index}>
                           <div className="flex items-center justify-center flex-col">
-                            <Image
+                            {/* <Image
                               src={`${IMAGE_URL}${cast.profile_path}`}
                               alt={cast.name}
                               width={200}
                               height={200}
                               className="w-28 h-28 rounded-full object-cover"
+                            /> */}
+                            {/* <Image
+                              src={`${IMAGE_URL}${cast.profile_path}`}
+                              alt={cast.name}
+                              width={200}
+                              height={200}
+                              className="w-28 h-28 rounded-full object-cover"
+                            /> */}
+                            <Image
+                              src={BlankImagePerson}
+                              alt={cast.name}
+                              width={200}
+                              height={200}
+                              className="w-28 h-28 rounded-full object-cover"
+                              objectFit="cover"
                             />
                             <p className="text-white font-medium text-base mt-2 text-center">
                               {cast.name}

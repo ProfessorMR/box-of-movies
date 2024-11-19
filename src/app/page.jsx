@@ -12,7 +12,7 @@ import {
 
 import Header from "@/src/components/Header";
 import HeroArea from "@/src/app/home/HeroArea";
-import BoxMovies from "@/src/components/BoxMovies";
+import SpecialSliders from "@/src/components/SpecialSliders";
 import Footer from "@/src/components/Footer";
 
 import "swiper/css";
@@ -102,28 +102,28 @@ export default function Home() {
       <Header />
       <HeroArea />
       <main className="main-content-area">
-        <BoxMovies
+        <SpecialSliders
           name="محبوب ترین سریال ها"
           information={popularSeriesData}
           activeBg={false}
           isSeries={true}
           genreSeries={genreSeriesData}
         />
-        <BoxMovies
+        <SpecialSliders
           name="برترین سریال ها"
           information={topRatedSeriesData}
           activeBg={true}
           isSeries={true}
           genreSeries={genreSeriesData}
         />
-        <BoxMovies
+        <SpecialSliders
           name="محبوب ترین فیلم ها"
           information={popularMoviesData}
           activeBg={false}
           isSeries={false}
           genreMovies={genreMoviesData}
         />
-        <BoxMovies
+        <SpecialSliders
           name="برترین فیلم ها"
           information={topRatedMoviesData}
           activeBg={true}

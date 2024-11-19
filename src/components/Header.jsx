@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IMAGE_URL } from "@/src/utils/data";
+// import { IMAGE_URL } from "@/src/utils/data";
 import { searchSeriesOrMovies } from "@/src/services/";
 
 import StarIcon from "@mui/icons-material/Star";
@@ -114,16 +114,19 @@ export default function Header() {
                             {item.title || item.name}
                           </h6>
                         </div>
+                        {/* Changing the static image with the image that comes from the api */}
                         <Image
-                          src={
-                            item.poster_path
-                              ? `${IMAGE_URL}${item.poster_path}`
-                              : BlankImage
-                          }
+                          // src={
+                          //   item.poster_path
+                          //     ? `${IMAGE_URL}${item.poster_path}`
+                          //     : BlankImage
+                          // }
+                          src={BlankImage}
                           alt={item.title || item.name}
                           className="w-28 h-28 object-cover"
                           width={112}
                           height={160}
+                          loading="lazy"
                         />
                       </Link>
                     ))
