@@ -20,82 +20,54 @@ import "swiper/css/free-mode";
 import "swiper/css/thumbs";
 import "swiper/css/navigation";
 
+async function fetchData(fetchFunction, setData) {
+  try {
+    const data = await fetchFunction();
+    setData(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export default function Home() {
-  const [popularSeriesData, setPopularSeriesData] = useState(null);
-  const [topRatedSeriesData, setTopRatedSeriesData] = useState(null);
-  const [popularMoviesData, setPopularMoviesData] = useState(null);
-  const [topRatedMoviesData, setTopRatedMoviesData] = useState(null);
-  const [genreMoviesData, setGenreMoviesData] = useState(null);
-  const [genreSeriesData, setGenreSeriesData] = useState(null);
+  const [data, setData] = useState({
+    popularSeries: null,
+    topRatedSeries: null,
+    popularMovies: null,
+    topRatedMovies: null,
+    genreMovies: null,
+    genreSeries: null,
+  });
 
   useEffect(() => {
-    async function fetchPopSeries() {
-      try {
-        const popSeriesData = await getPopSeries();
-
-        setPopularSeriesData(popSeriesData);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function fetchTopSeries() {
-      try {
-        const topSeriesData = await getTopSeries();
-
-        setTopRatedSeriesData(topSeriesData);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function fetchPopMovies() {
-      try {
-        const popMoviesData = await getPopMovies();
-
-        setPopularMoviesData(popMoviesData);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function fetchTopMovies() {
-      try {
-        const topMoviesData = await getTopMovies();
-
-        setTopRatedMoviesData(topMoviesData);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function fetchGenreMovies() {
-      try {
-        const topMoviesData = await getGenreMovies();
-
-        setGenreMoviesData(topMoviesData);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    async function fetchGenreSeries() {
-      try {
-        const topMoviesData = await getGenreSeries();
-
-        setGenreSeriesData(topMoviesData);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    fetchPopSeries();
-    fetchTopSeries();
-    fetchPopMovies();
-    fetchTopMovies();
-    fetchGenreMovies();
-    fetchGenreSeries();
+    fetchData(getPopSeries, (data) =>
+      setData((prev) => ({ ...prev, popularSeries: data }))
+    );
+    fetchData(getTopSeries, (data) =>
+      setData((prev) => ({ ...prev, topRatedSeries: data }))
+    );
+    fetchData(getPopMovies, (data) =>
+      setData((prev) => ({ ...prev, popularMovies: data }))
+    );
+    fetchData(getTopMovies, (data) =>
+      setData((prev) => ({ ...prev, topRatedMovies: data }))
+    );
+    fetchData(getGenreMovies, (data) =>
+      setData((prev) => ({ ...prev, genreMovies: data }))
+    );
+    fetchData(getGenreSeries, (data) =>
+      setData((prev) => ({ ...prev, genreSeries: data }))
+    );
   }, []);
+
+  const {
+    popularSeries,
+    topRatedSeries,
+    popularMovies,
+    topRatedMovies,
+    genreMovies,
+    genreSeries,
+  } = data;
 
   return (
     <>
@@ -104,31 +76,31 @@ export default function Home() {
       <main className="main-content-area">
         <SpecialSliders
           name="محبوب ترین سریال ها"
-          information={popularSeriesData}
+          information={popularSeries}
           activeBg={false}
           isSeries={true}
-          genreSeries={genreSeriesData}
+          genreSeries={genreSeries}
         />
         <SpecialSliders
           name="برترین سریال ها"
-          information={topRatedSeriesData}
+          information={topRatedSeries}
           activeBg={true}
           isSeries={true}
-          genreSeries={genreSeriesData}
+          genreSeries={genreSeries}
         />
         <SpecialSliders
           name="محبوب ترین فیلم ها"
-          information={popularMoviesData}
+          information={popularMovies}
           activeBg={false}
           isSeries={false}
-          genreMovies={genreMoviesData}
+          genreMovies={genreMovies}
         />
         <SpecialSliders
           name="برترین فیلم ها"
-          information={topRatedMoviesData}
+          information={topRatedMovies}
           activeBg={true}
           isSeries={false}
-          genreMovies={genreMoviesData}
+          genreMovies={genreMovies}
         />
       </main>
       <Footer />

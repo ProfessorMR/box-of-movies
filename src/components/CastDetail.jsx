@@ -38,7 +38,6 @@ export default function CastDetail({ loadingCredits, creditsData }) {
             "--swiper-navigation-color": "#fff",
             "--swiper-pagination-color": "#fff",
           }}
-          loop={true}
           spaceBetween={10}
           slidesPerView={9}
           navigation={true}

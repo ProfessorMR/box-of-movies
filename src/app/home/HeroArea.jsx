@@ -68,7 +68,6 @@ export default function App() {
   return (
     <section className="w-full z-10 h-screen">
       <Swiper
-        loop={true}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -82,7 +81,7 @@ export default function App() {
           <SwiperSlide key={index} className="relative h-full w-full">
             <Image
               src={slide.image}
-              layout="fill"
+              fill
               className="w-full h-full object-cover"
               alt={slide.title}
             />
@@ -134,7 +133,6 @@ export default function App() {
         <div className="container mx-auto px-4">
           <Swiper
             onSwiper={setThumbsSwiper}
-            loop={true}
             spaceBetween={10}
             autoplay={{
               delay: 5000,

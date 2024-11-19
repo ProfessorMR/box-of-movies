@@ -47,7 +47,6 @@ export default function BoxMovies({
               "--swiper-navigation-color": "#fff",
               "--swiper-pagination-color": "#fff",
             }}
-            loop={true}
             spaceBetween={10}
             slidesPerView={4}
             navigation={true}

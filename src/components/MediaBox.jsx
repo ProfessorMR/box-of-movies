@@ -58,8 +58,8 @@ export default function MediaBox({
         <Image
           src={BlankImage}
           alt={item.name || item.title}
-          className="rounded-t-md w-full object-cover h-48"
-          objectFit="cover"
+          className="rounded-t-md w-full h-48"
+          style={{ objectFit: "cover" }}
         />
         <div className="bg-slate-700 rounded-b-md p-3">
           <h3 className="text-left text-white font-semibold text-lg whitespace-nowrap overflow-hidden text-ellipsis">

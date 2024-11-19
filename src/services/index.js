@@ -1,8 +1,6 @@
 import { SERVER_URL } from "@/src/utils/data";
 
 const ACCESS_TOKEN = process.env.NEXT_PUBLIC_ACCESS_TOKEN
-console.log(ACCESS_TOKEN);
-
 
 export async function getPopSeries() {
   try {
