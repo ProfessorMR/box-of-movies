@@ -55,7 +55,7 @@ export default function Header() {
     <header className="w-full flex py-4 bg-transparent z-20 absolute top-0 header-area">
       <div className="container mx-auto px-4">
         <div className="w-full flex justify-between items-center">
-          <Image src={Logo} className="w-40" alt="logo" />
+          <Image src={Logo} className="w-40" alt="logo" priority />
           <div className="flex items-center">
             <Link
               href="/"
@@ -126,7 +126,7 @@ export default function Header() {
                           className="w-28 h-28 object-cover"
                           width={112}
                           height={160}
-                          loading="lazy"
+                          priority
                         />
                       </Link>
                     ))

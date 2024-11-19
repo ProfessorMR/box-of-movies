@@ -60,6 +60,7 @@ export default function MediaBox({
           alt={item.name || item.title}
           className="rounded-t-md w-full h-48"
           style={{ objectFit: "cover" }}
+          priority
         />
         <div className="bg-slate-700 rounded-b-md p-3">
           <h3 className="text-left text-white font-semibold text-lg whitespace-nowrap overflow-hidden text-ellipsis">

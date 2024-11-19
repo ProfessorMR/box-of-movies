@@ -29,7 +29,10 @@ export default function PaginateMedia({ count, currentPage, onPageChange }) {
         breakLabel="..."
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
-        pageCount={Math.ceil(pageCount) > 500 ? 500 : Math.ceil(pageCount)}
+        pageCount={Math.max(
+          1,
+          Math.ceil(pageCount) > 500 ? 500 : Math.ceil(pageCount)
+        )}
         forcePage={currentPage}
         previousLabel={"<"}
         nextLabel={">"}

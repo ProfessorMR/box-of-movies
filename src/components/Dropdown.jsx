@@ -73,7 +73,13 @@ export default function Dropdown({ data, isOpen, setOpenDropdown }) {
           id="dropdown"
           className="z-10 absolute top-12 right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-36 dark:bg-gray-700"
         >
-          <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+          <ul
+            className="py-2 text-sm text-gray-700 dark:text-gray-200 max-h-80 overflow-y-auto [&::-webkit-scrollbar]:w-2
+          [&::-webkit-scrollbar-track]:bg-gray-100
+          [&::-webkit-scrollbar-thumb]:bg-gray-300
+          dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+          dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+          >
             {data.inside_dropdown.map((item, index) => (
               <li
                 key={index}

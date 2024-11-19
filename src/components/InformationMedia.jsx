@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import CastDetail from "@/src/components/CastDetail";
+import InformationMediaDetails from "@/src/components/InformationMediaDetails";
+import { useInformationMedia } from "@/src/hooks/useInformationMedia";
 // import { IMAGE_URL } from "@/src/utils/data";
 
 import StarIcon from "@mui/icons-material/Star";
@@ -13,9 +16,6 @@ import BlankImage from "@/public/images/error/blank-image.jpg";
 import BlankImage2 from "@/public/images/error/blank-image-2.jpg";
 
 import "@/src/styles/informationMedia.css";
-import CastDetail from "./CastDetail";
-import { useInformationMedia } from "../hooks/useInformationMedia";
-import InformationMediaDetails from "./InformationMediaDetails";
 
 export default function InformationMedia({ params, isSeries }) {
   const mediaParams = JSON.parse(params);
@@ -47,7 +47,8 @@ export default function InformationMedia({ params, isSeries }) {
                 width={1000}
                 height={200}
                 className="w-full object-cover"
-                objectFit="cover"
+                style={{ objectFit: "cover" }}
+                priority
               />
               <div className="absolute inset-0 z-20 pointer-events-none">
                 <div className="absolute bottom-0 right-0 w-full h-52 bg-gradient-to-t from-neutral-950 to-transparent"></div>
@@ -148,8 +149,8 @@ export default function InformationMedia({ params, isSeries }) {
                       alt={detailData.name || detailData.title}
                       width={1000}
                       height={200}
-                      objectFit="cover"
-                      className="w-full h-96 object-cover border-4 border-neutral-700 rounded-md"
+                      style={{ objectFit: "cover" }}
+                      className="w-full h-96 border-4 border-neutral-700 rounded-md"
                     />
                   )}
                 </div>

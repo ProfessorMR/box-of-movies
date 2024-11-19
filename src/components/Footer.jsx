@@ -54,7 +54,7 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
-          <Image src={Logo} alt="Logo" className="w-52 mt-8" />
+          <Image src={Logo} alt="Logo" className="w-52 mt-8" priority />
         </div>
       </div>
     </footer>
