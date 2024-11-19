@@ -22,7 +22,7 @@ export default function InformationMedia({ params, isSeries }) {
 
   const { detailData, creditsData, loading, loadingCredits } =
     useInformationMedia({ mediaParams, isSeries });
-
+    
   return (
     <>
       <div className="w-full py-10">
@@ -167,7 +167,7 @@ export default function InformationMedia({ params, isSeries }) {
                 ) : (
                   <p className="text-neutral-300 mt-3">
                     {detailData.overview
-                      ? detailData
+                      ? detailData.overview
                       : "متاسفانه توضیحی وجود ندارد☹️"}
                   </p>
                 )}
