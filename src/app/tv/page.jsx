@@ -4,6 +4,12 @@ import Header from "@/src/components/Header";
 import MediaGallery from "@/src/components/MediaGallery";
 import { DropdownProvider } from "@/src/context/DropdownContext";
 
+export async function generateMetadata() {
+  return {
+    title: "سریال ها",
+  };
+}
+
 export default function Tv() {
   return (
     <DropdownProvider>

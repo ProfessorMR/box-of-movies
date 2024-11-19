@@ -9,8 +9,11 @@ const vazirMatn = Vazirmatn({
 });
 
 export const metadata = {
-  title: "مووی باکس",
-  description: "مشاهده فیلم و سریال های دنیا به همراه نظرات کاربران",
+  title: {
+    default: "مووی باکس",
+    template: "مووی باکس | %s",
+  },
+  description: "مشاهده فیلم و سریال های دنیا",
   icons: [
     {
       rel: "icon",
