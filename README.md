@@ -1,6 +1,5 @@
 # About The Project
 
-
 ![box-of-movies](./public/images/desktop-preview.png)
 
 BoxOfMovies is a comprehensive platform for watching and discovering the latest movies and TV shows. The goal of this platform is to provide a simple and user-friendly experience for movie and TV enthusiasts. Users can easily access information about movies and TV shows, ratings, and summaries, and easily find the movies or TV shows they are looking for.
@@ -50,3 +49,12 @@ To view the project, you can follow the link below
 
 Mohammad Ramaji: [instagram](https://instagram.com/mohammad._.rmj)
 Project Link: [BoxOfMovies](https://github.com/ProfessorMR/box-of-movies.git)
+
+### Acknowledgments
+
+I would like to give credit to the original UI design that inspired this project:
+
+- **[LeeuCode](https://github.com/LeeuCode/)** - Original UI design concept  
+- [Original Design on templatemonster](https://www.templatemonster.com/website-templates/gammra-movies-amp-tv-series-bootstrap-template-436098.html)
+
+Thank you for your amazing design and inspiration!
