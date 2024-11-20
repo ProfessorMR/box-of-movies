@@ -97,7 +97,7 @@ export default function App() {
                 <span className="bg-primary text-slate-800 py-0.5 px-4 rounded text-sm font-medium">
                   New
                 </span>
-                <h1 className="mt-4 text-white font-bold text-6xl fade-in-title">
+                <h1 className="mt-4 text-white font-bold text-4xl md:text-5xl lg:text-6xl fade-in-title">
                   {slide.title}
                 </h1>
                 <ul className="flex justify-start flex-row-reverse gap-x-3 mt-2 fade-in-info">
@@ -118,7 +118,7 @@ export default function App() {
                     <CalendarMonthIcon className="text-white text-xl mr-1" />
                   </li>
                 </ul>
-                <p className="mt-4 text-slate-200 text-base w-96 fade-in-text">
+                <p className="mt-4 text-slate-200 text-sm md:text-base w-96 fade-in-text">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
                   harum delectus iusto eos. Possimus expedita explicabo nihil
                   dolorem quisquam labore.
@@ -142,7 +142,7 @@ export default function App() {
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Autoplay, Thumbs]}
-            className="w-full"
+            className="w-full md:!block !hidden"
           >
             {slides.map((slide, index) => (
               <SwiperSlide

@@ -5,9 +5,9 @@ import { Autoplay, FreeMode, Navigation } from "swiper/modules";
 
 import MediaBox from "./MediaBox";
 
-import "@/src/styles/boxMovies.css";
+import "@/src/styles/SpecialSliders.css";
 
-export default function BoxMovies({
+export default function SpecialSliders({
   name,
   information,
   activeBg,
@@ -40,7 +40,9 @@ export default function BoxMovies({
     >
       <div className="container mx-auto px-4">
         <div className="mt-4">
-          <h1 className="mb-4 font-bold text-2xl text-primary">{name}</h1>
+          <h1 className="mb-4 font-bold md:text-2xl text-xl text-primary">
+            {name}
+          </h1>
           <hr />
           <Swiper
             style={{
@@ -48,11 +50,16 @@ export default function BoxMovies({
               "--swiper-pagination-color": "#fff",
             }}
             spaceBetween={10}
-            slidesPerView={4}
+            slidesPerView={1}
             navigation={true}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
+            }}
+            breakpoints={{
+              1280: { slidesPerView: 4 },
+              1024: { slidesPerView: 3 },
+              600: { slidesPerView: 2 },
             }}
             modules={[FreeMode, Autoplay, Navigation]}
             className="h-full w-full mt-5 box-movies-swiper"

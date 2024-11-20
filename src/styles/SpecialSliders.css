@@ -16,3 +16,19 @@
 .loading-box-movies span[aria-live="polite"] {
   display: flex;
 }
+
+@media (max-width: 768px) {
+  .box-movies-swiper :is(.swiper-button-prev, .swiper-button-next) {
+    padding: 10px 20px;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-rtl .swiper-button-next:after {
+    font-size: 25px;
+  }
+
+  .swiper-button-next:after,
+  .swiper-rtl .swiper-button-prev:after {
+    font-size: 25px;
+  }
+}

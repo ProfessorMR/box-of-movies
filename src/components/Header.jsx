@@ -7,6 +7,8 @@ import Link from "next/link";
 import { searchSeriesOrMovies } from "@/src/services/";
 
 import StarIcon from "@mui/icons-material/Star";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 import Logo from "@/public/images/logo.png";
 import EmptySearch from "@/public/images/error/empty-search.svg";
@@ -18,6 +20,7 @@ export default function Header() {
   const [searchName, setSearchName] = useState("");
   const [searchResult, setSearchResult] = useState(null);
   const [showResults, setShowResults] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -51,12 +54,66 @@ export default function Header() {
     };
   }, []);
 
+  const handleMenuToggle = () => setMenuOpen(!menuOpen);
+  const handleMenuClose = () => setMenuOpen(false);
+
   return (
     <header className="w-full flex py-4 bg-transparent z-20 absolute top-0 header-area">
       <div className="container mx-auto px-4">
         <div className="w-full flex justify-between items-center">
-          <Image src={Logo} className="w-40" alt="logo" priority />
-          <div className="flex items-center">
+          {menuOpen && (
+            <div
+              className="fixed inset-0 z-20 bg-neutral-900/60 lg:hidden block"
+              onClick={handleMenuClose}
+            ></div>
+          )}
+          <div
+            className="bg-primary p-2 text-xl shadow rounded-xl text-white cursor-pointer lg:hidden block"
+            onClick={handleMenuToggle}
+          >
+            <MenuIcon />
+          </div>
+          <div
+            className={`flex-col px-2 py-3 bg-neutral-800  h-screen w-56 fixed right-0 top-0 z-30 lg:hidden flex transition-transform duration-300 ${
+              menuOpen ? "translate-x-0" : "translate-x-full overflow-auto"
+            }`}
+          >
+            <Image src={Logo} className="w-40 mx-auto" alt="logo" priority />
+            <hr />
+            <div className="flex flex-col py-3">
+              <Link
+                href="/"
+                className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
+              >
+                خانه
+              </Link>
+              <Link
+                href="/movies"
+                className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
+              >
+                فیلم ها
+              </Link>
+              <Link
+                href="/tv"
+                className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
+              >
+                سریال ها
+              </Link>
+            </div>
+            <div
+              className="absolute top-2 -left-4 bg-white p-2 rounded-full shadow-xl cursor-pointer"
+              onClick={handleMenuClose}
+            >
+              <CloseIcon />
+            </div>
+          </div>
+          <Image
+            src={Logo}
+            className="w-40 lg:block hidden"
+            alt="logo"
+            priority
+          />
+          <div className="items-center lg:flex hidden">
             <Link
               href="/"
               className="text-white font-medium transition ease-in-out px-3 py-1 rounded-md text-lg hover:bg-primary hover:text-white"
