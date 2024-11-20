@@ -58,12 +58,12 @@ export default function Header() {
   const handleMenuClose = () => setMenuOpen(false);
 
   return (
-    <header className="w-full flex py-4 bg-transparent z-20 absolute top-0 header-area">
+    <header className="w-full flex py-4 bg-transparent z-50 absolute top-0 header-area">
       <div className="container mx-auto px-4">
         <div className="w-full flex justify-between items-center">
           {menuOpen && (
             <div
-              className="fixed inset-0 z-20 bg-neutral-900/60 lg:hidden block"
+              className="fixed inset-0 z-40 bg-neutral-900/60 lg:hidden block"
               onClick={handleMenuClose}
             ></div>
           )}
@@ -74,7 +74,7 @@ export default function Header() {
             <MenuIcon />
           </div>
           <div
-            className={`flex-col px-2 py-3 bg-neutral-800  h-screen w-56 fixed right-0 top-0 z-30 lg:hidden flex transition-transform duration-300 ${
+            className={`flex-col px-2 py-3 bg-neutral-800  h-screen w-56 fixed right-0 top-0 z-50 lg:hidden flex transition-transform duration-300 ${
               menuOpen ? "translate-x-0" : "translate-x-full overflow-auto"
             }`}
           >

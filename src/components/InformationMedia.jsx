@@ -59,7 +59,7 @@ export default function InformationMedia({ params, isSeries }) {
         <section className="information-media-area">
           <div className="container mx-auto px-4">
             <div className="w-full">
-              <div className="lg:grid lg:grid-cols-5 flex justify-center flex-col-reverse gap-4 -mt-40 z-50 relative">
+              <div className="lg:grid lg:grid-cols-5 flex justify-center flex-col-reverse gap-4 -mt-40 z-40 relative">
                 <div className="lg:col-span-4 py-6">
                   <div className="w-full">
                     {loading ? (
@@ -123,13 +123,13 @@ export default function InformationMedia({ params, isSeries }) {
                     loading={loading}
                   />
                 </div>
-                <div className="w-full">
+                <div className="w-full z-10">
                   {loading ? (
                     <SkeletonTheme baseColor="#202020" highlightColor="#3c3c3c">
                       <Skeleton
-                        height={384}
-                        width={256}
-                        className="rounded-md"
+                        height={350}
+                        width="100%"
+                        className="rounded-md lg:aspect-auto aspect-video"
                       />
                     </SkeletonTheme>
                   ) : (
