@@ -50,7 +50,7 @@ To view the project, you can follow the link below
 Mohammad Ramaji: [instagram](https://instagram.com/mohammad._.rmj)
 Project Link: [BoxOfMovies](https://github.com/ProfessorMR/box-of-movies.git)
 
-### Acknowledgments
+## Acknowledgments
 
 I would like to give credit to the original UI design that inspired this project:
 
