@@ -1,3 +1,10 @@
 .banner img {
   height: 80vh;
 }
+
+
+@media (max-width: 1024px) {
+  .banner img {
+    height: 60vh;
+  }
+}

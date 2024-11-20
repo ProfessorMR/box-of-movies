@@ -22,7 +22,7 @@ export default function InformationMedia({ params, isSeries }) {
 
   const { detailData, creditsData, loading, loadingCredits } =
     useInformationMedia({ mediaParams, isSeries });
-    
+
   return (
     <>
       <div className="w-full py-10">
@@ -59,8 +59,8 @@ export default function InformationMedia({ params, isSeries }) {
         <section className="information-media-area">
           <div className="container mx-auto px-4">
             <div className="w-full">
-              <div className="grid grid-cols-5 gap-4 -mt-40 z-50 relative">
-                <div className="col-span-4 py-6">
+              <div className="lg:grid lg:grid-cols-5 flex justify-center flex-col-reverse gap-4 -mt-40 z-50 relative">
+                <div className="lg:col-span-4 py-6">
                   <div className="w-full">
                     {loading ? (
                       <SkeletonTheme
@@ -86,7 +86,7 @@ export default function InformationMedia({ params, isSeries }) {
                       </SkeletonTheme>
                     ) : (
                       <>
-                        <h1 className="text-left text-5xl text-white font-extrabold">
+                        <h1 className="text-left text-3xl md:text-4xl lg:text-5xl text-white font-extrabold">
                           {detailData.name || detailData.title}
                         </h1>
                         <ul className="flex justify-start flex-row-reverse gap-x-3 mt-3">
@@ -94,15 +94,15 @@ export default function InformationMedia({ params, isSeries }) {
                             {Number.parseFloat(detailData.vote_average).toFixed(
                               1
                             )}
-                            <StarIcon className="text-primary text-3xl mr-1" />
+                            <StarIcon className="text-primary text-xl md:text-2xl xl:text-3xl mr-1" />
                           </li>
                           <li className="text-slate-300 text-md">
                             {detailData.genres[0].name}
-                            <FormatListBulletedIcon className="text-white text-3xl mr-1" />
+                            <FormatListBulletedIcon className="text-white text-xl md:text-2xl xl:text-3xl mr-1" />
                           </li>
                           <li className="text-slate-300 text-md">
                             4k
-                            <TvIcon className="text-white text-3xl mr-1" />
+                            <TvIcon className="text-white text-xl md:text-2xl xl:text-3xl mr-1" />
                           </li>
                           <li className="text-slate-300 text-md">
                             {
@@ -111,7 +111,7 @@ export default function InformationMedia({ params, isSeries }) {
                                 detailData.release_date
                               )?.split("-")[0]
                             }
-                            <CalendarMonthIcon className="text-white text-3xl mr-1" />
+                            <CalendarMonthIcon className="text-white text-xl md:text-2xl xl:text-3xl mr-1" />
                           </li>
                         </ul>
                       </>
@@ -123,7 +123,7 @@ export default function InformationMedia({ params, isSeries }) {
                     loading={loading}
                   />
                 </div>
-                <div className="flex justify-end">
+                <div className="w-full">
                   {loading ? (
                     <SkeletonTheme baseColor="#202020" highlightColor="#3c3c3c">
                       <Skeleton
@@ -150,13 +150,13 @@ export default function InformationMedia({ params, isSeries }) {
                       width={1000}
                       height={200}
                       style={{ objectFit: "cover" }}
-                      className="w-full h-96 border-4 border-neutral-700 rounded-md"
+                      className="md:w-3/4 lg:w-full w-full mx-auto h-96 border-4 border-neutral-700 rounded-md"
                     />
                   )}
                 </div>
               </div>
               <div className="w-full bg-neutral-700 p-4 rounded-md">
-                <h3 className="mb-3 text-primary font-medium text-xl">
+                <h3 className="mb-3 text-primary font-medium text-lg md:text-xl">
                   توضیحات
                 </h3>
                 <hr />
@@ -165,7 +165,7 @@ export default function InformationMedia({ params, isSeries }) {
                     <Skeleton count={4} className="mt-3" />
                   </SkeletonTheme>
                 ) : (
-                  <p className="text-neutral-300 mt-3">
+                  <p className="text-neutral-300 mt-3 text-sm md:text-base">
                     {detailData.overview
                       ? detailData.overview
                       : "متاسفانه توضیحی وجود ندارد☹️"}

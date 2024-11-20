@@ -14,14 +14,14 @@ export default function InformationMediaDetails({
   loading,
 }) {
   return (
-    <div className="w-full bg-neutral-700 mt-20 rounded-md shadow-md p-4">
-      <h3 className="mb-3 text-primary font-medium text-xl">
+    <div className="w-full bg-neutral-700 lg:mt-20 mt-10 rounded-md shadow-md p-4">
+      <h3 className="mb-3 text-primary font-medium text-lg md:text-xl">
         {isSeries ? "جزئیات سریال" : "جزئیات فیلم"}
       </h3>
       <hr />
       {loading ? (
         <SkeletonTheme baseColor="#202020" highlightColor="#3c3c3c">
-          <div className="grid grid-cols-2 gap-2 mt-3">
+          <div className="grid md:grid-cols-2 grid-cols-1 gap-2 mt-3">
             {Array.from({ length: 6 }).map((_, index) => (
               <div key={index} className="flex items-center">
                 <Skeleton width={100} height={20} className="mr-2" />
@@ -31,48 +31,48 @@ export default function InformationMediaDetails({
           </div>
         </SkeletonTheme>
       ) : (
-        <div className="grid grid-cols-2 gap-2 mt-3">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-2 mt-3">
           <div className="flex items-center">
-            <span className="text-primary font-medium text-base my-1">
+            <span className="text-primary font-medium text-sm md:text-base my-1">
               <MovieIcon className="ml-1" />
               نام اصلی:
             </span>
-            <p className="mr-2 text-white text-base">
+            <p className="mr-2 text-white text-sm md:text-base">
               {detailData.original_name || detailData.original_title}
             </p>
           </div>
           <div className="flex items-center">
-            <span className="text-primary font-medium text-base my-1">
+            <span className="text-primary font-medium text-sm md:text-base my-1">
               <CategoryIcon className="ml-1" />
               ژانر:
             </span>
-            <p className="mr-2 text-white text-base">
+            <p className="mr-2 text-white text-sm md:text-base">
               {detailData.genres.map((genre) => genre.name).join(", ")}
             </p>
           </div>
           <div className="flex items-center">
-            <span className="text-primary font-medium text-base my-1">
+            <span className="text-primary font-medium text-sm md:text-base my-1">
               <PublicIcon className="ml-1" />
               سال انتشار:
             </span>
-            <p className="mr-2 text-white text-base">
+            <p className="mr-2 text-white text-sm md:text-base">
               {detailData.first_air_date || detailData.release_date}
             </p>
           </div>
           {isSeries ? (
             <div className="flex items-center">
-              <span className="text-primary font-medium text-base my-1">
+              <span className="text-primary font-medium text-sm md:text-base my-1">
                 <LanguageIcon className="ml-1" />
                 زبان:
               </span>
-              <p className="mr-2 text-white text-base">
+              <p className="mr-2 text-white text-sm md:text-base">
                 {" "}
                 {detailData.languages.map((lang) => lang).join(", ")}
               </p>
             </div>
           ) : (
             <div className="flex items-center">
-              <span className="text-primary font-medium text-base my-1">
+              <span className="text-primary font-medium text-sm md:text-base my-1">
                 <LanguageIcon className="ml-1" />
                 زبان:
               </span>
@@ -84,12 +84,12 @@ export default function InformationMediaDetails({
 
           {isSeries ? (
             <div className="flex items-center">
-              <span className="text-primary font-medium text-base my-1">
+              <span className="text-primary font-medium text-sm md:text-base my-1">
                 <SyncIcon className="ml-1" />
                 وضعیت:
               </span>
 
-              <p className="mr-2 text-white text-base">
+              <p className="mr-2 text-white text-sm md:text-base">
                 {detailData.status === "Ended"
                   ? "پایان یافته"
                   : detailData.status === "In Production"
@@ -99,7 +99,7 @@ export default function InformationMediaDetails({
             </div>
           ) : (
             <div className="flex items-center">
-              <span className="text-primary font-medium text-base my-1">
+              <span className="text-primary font-medium text-sm md:text-base my-1">
                 <AttachMoneyIcon className="ml-1" />
                 بودجه:
               </span>
@@ -109,11 +109,13 @@ export default function InformationMediaDetails({
           )}
 
           <div className="flex items-center">
-            <span className="text-primary font-medium text-base my-1">
+            <span className="text-primary font-medium text-sm md:text-base my-1">
               <HowToRegIcon className="ml-1" />
               تعداد رای ها:
             </span>
-            <p className="mr-2 text-white text-base">{detailData.vote_count}</p>
+            <p className="mr-2 text-white text-sm md:text-base">
+              {detailData.vote_count}
+            </p>
           </div>
         </div>
       )}
