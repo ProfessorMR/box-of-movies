@@ -58,7 +58,7 @@ export default function MediaGallery({ isSeries }) {
           const allSeries = await advancedFilterSeries({
             page: pageOffset + 1,
             year: selectedItem.year === null ? "" : selectedItem.year,
-            genre: selectedItem.genre === null ? "" : selectedItem.genre.id,
+            genre: selectedItem.genre === null ? "" : selectedItem.genre,
             voteAvg: selectedItem.voteAvg === null ? "" : selectedItem.voteAvg,
           });
 
@@ -79,7 +79,7 @@ export default function MediaGallery({ isSeries }) {
           const allMovies = await advancedFilterMovies({
             page: pageOffset + 1,
             year: selectedItem.year === null ? "" : selectedItem.year,
-            genre: selectedItem.genre === null ? "" : selectedItem.genre.id,
+            genre: selectedItem.genre === null ? "" : selectedItem.genre,
             voteAvg: selectedItem.voteAvg === null ? "" : selectedItem.voteAvg,
           });
 
@@ -128,7 +128,7 @@ export default function MediaGallery({ isSeries }) {
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center">
           {loading ? (
-            <div className="grid grid-cols-4 gap-4 w-full">
+            <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
               {Array.from({ length: itemsPerPage }).map((_, index) => (
                 <div
                   key={index}
@@ -139,7 +139,7 @@ export default function MediaGallery({ isSeries }) {
           ) : (
             <>
               {isSeries && allSeriesData?.results.length > 0 ? (
-                <div className="grid grid-cols-4 gap-4 w-full">
+                <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
                   {allSeriesData.results.map((item, index) => (
                     <MediaBox
                       key={index}
@@ -150,7 +150,7 @@ export default function MediaGallery({ isSeries }) {
                   ))}
                 </div>
               ) : !isSeries && allMoviesData?.results.length > 0 ? (
-                <div className="grid grid-cols-4 gap-4 w-full">
+                <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 w-full">
                   {allMoviesData.results.map((item, index) => (
                     <MediaBox
                       key={index}
