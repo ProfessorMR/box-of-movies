@@ -39,12 +39,6 @@ _Below is an example of how you can instruct your audience on installing and set
 
 `const ACCESS_TOKEN = 'ENTER YOUR API';`
 
-## Usage
-
-To view the project, you can follow the link below
-
-[BoxOfMovies](https://google.com)
-
 ## Contact
 
 Mohammad Ramaji: [instagram](https://instagram.com/mohammad._.rmj)
